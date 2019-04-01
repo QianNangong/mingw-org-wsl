@@ -7,7 +7,7 @@ PACKAGE_TARNAME := @PACKAGE_TARNAME@
 PACKAGE_VERSION := @PACKAGE_VERSION@
 
 # Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2014-2017, MinGW.org Project
+# Copyright (C) 2014-2018, MinGW.org Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
@@ -268,8 +268,9 @@ $(addsuffix .def,$(all_msvcrt)): %.def: msvcrt.def.in
 # which implements a vectored jump to the regular entry point for
 # the DLL implementation of its corresponding replaced function.
 #
-msvcrt_repl_prefix = __msvcrt
-msvcrt_repl_funcs = printf fprintf sprintf vprintf vfprintf vsprintf
+msvcrt_repl_prefix := __msvcrt
+msvcrt_repl_funcs := printf fprintf sprintf vprintf vfprintf vsprintf
+msvcrt_repl_funcs += free realloc
 
 # This is kludgey, but dlltool lacks the selectivity to do the job
 # well; (its --ext-prefix-alias option, which is what we would like
@@ -352,12 +353,13 @@ coldname.def: %.def: ${mingwrt_srcdir}/moldname.def.in
 $(addsuffix .def,$(all_moldname)): %.def: ${mingwrt_srcdir}/moldname.def.in
 	$(CC) -C -E -P -D__FILENAME__=$@ -xc-header $< > $@
 
-all-mingwrt-libs install-mingwrt-libs: libmingw32.a libmingwex.a
+vpath %.sx ${mingwrt_srcdir}
+all-mingwrt-libs install-mingwrt-libs: libmingw32.a libmingwex.a libmemalign.a
 libmingw32.a: $(addsuffix .$(OBJEXT), CRTinit CRTglob setargv \
   CRTfmode cpu_features CRT_fp10 txtmode main dllmain gccmain crtst \
   tlsmcrt tlsmthread tlssup tlsthrd pseudo-reloc pseudo-reloc-list)
 
-libmingw32.a libmingwex.a libm.a libmingwthrd.a libgmon.a:
+libmingw32.a libmingwex.a libmemalign.a libm.a libmingwthrd.a libgmon.a:
 	$(AR) $(ARFLAGS) $@ $?
 
 # Complex math objects, to be included in libmingwex.a
@@ -424,9 +426,9 @@ libmingwex.a: $(addsuffix .$(OBJEXT), cosf cosl acosf acosl sinf sinl asinf \
 # compatibility than their Microsoft equivalents.
 #
 vpath %.c ${mingwrt_srcdir}/mingwex/stdio
-libmingwex.a: $(addsuffix .$(OBJEXT), btowc fprintf fseeko64 ofmtctl pformat \
-  printf snprintf sprintf vfprintf vfscanf vfwscanf vprintf vscanf vsnprintf \
-  vsprintf vsscanf vswscanf vwscanf)
+libmingwex.a: $(addsuffix .$(OBJEXT), btowc fprintf fseeki64 ftelli64 \
+  fwrite ofmtctl pformat printf snprintf sprintf vfprintf vfscanf vfwscanf \
+  vprintf vscanf vsnprintf vsprintf vsscanf vswscanf vwscanf)
 
 # pformat.$(OBJEXT) needs an explicit build rule, since we need to
 # specify an additional header file path.
@@ -443,14 +445,25 @@ libmingwex.a: $(addsuffix fmt.$(OBJEXT),varo crto geto seto crtn getn setn)
 $(addsuffix fmt.$(OBJEXT),varo crto geto seto crtn getn setn): %.$(OBJEXT): ofmt.c
 	$(CC) -c $(ALL_CFLAGS) -D__$*__ -fno-align-functions -o $@ $<
 
+# Functions comprising the MinGW aligned heap management API:
+#
+LIBMINGWEX_MEMALIGN := memalign-lwm memalign-base aligned-malloc
+LIBMINGWEX_MEMALIGN += aligned-realloc memalign-realloc realloc free
+
+LIBMINGWEX_MEMALIGN_OBJECTS = $(addsuffix .$(OBJEXT),$(LIBMINGWEX_MEMALIGN))
+
+$(LIBMINGWEX_MEMALIGN_OBJECTS): %.$(OBJEXT): memalign.c
+	$(CC) -c $(CFLAGS) -D__mingw_$(subst -,_,$*)_case $< -o $@
+
+libmingwex.a: $(LIBMINGWEX_MEMALIGN_OBJECTS)
+
 # Some additional miscellaneous functions, in libmingwex.a
 #
-libmingwex.a: $(addsuffix .$(OBJEXT), mingw-aligned-malloc mingw-fseek)
 libmingwex.a: $(addsuffix .$(OBJEXT), glob getopt basename dirname nsleep)
+libmingwex.a: $(addsuffix .$(OBJEXT), clockapi clockres clockset clocktime)
+libmingwex.a: $(addsuffix .$(OBJEXT), insque remque tdelete tfind tsearch twalk)
+libmingwex.a: $(addsuffix .$(OBJEXT), dirent wdirent dlfcn strerror_r strtok_r)
 libmingwex.a: $(addsuffix .$(OBJEXT), mkstemp mkdtemp cryptnam setenv)
-
-libmingwex.a: $(addsuffix .$(OBJEXT), tdelete tfind tsearch twalk)
-libmingwex.a: $(addsuffix .$(OBJEXT), dirent wdirent dlfcn strerror_r)
 libmingwex.a: $(addsuffix .$(OBJEXT), getdelim gettimeofday)
 
 vpath %.s ${mingwrt_srcdir}/mingwex
@@ -489,15 +502,15 @@ $(addsuffix .$(OBJEXT), llround llroundf llroundl): %.$(OBJEXT): lround_generic.
 #
 vpath %.sx ${mingwrt_srcdir}/mingwex/math
 $(addsuffix .$(OBJEXT), % %f %l): %_generic.sx
-	$(CC) -c -D_$*_source $(ALL_CPPFLAGS) $(ASFLAGS) -o $*.$(OBJEXT) $<
-	$(CC) -c -D_$*f_source $(ALL_CPPFLAGS) $(ASFLAGS) -o $*f.$(OBJEXT) $<
-	$(CC) -c -D_$*l_source $(ALL_CPPFLAGS) $(ASFLAGS) -o $*l.$(OBJEXT) $<
+	$(COMPILE.sx) -D_$*_source -o $*.$(OBJEXT) $<
+	$(COMPILE.sx) -D_$*f_source -o $*f.$(OBJEXT) $<
+	$(COMPILE.sx) -D_$*l_source -o $*l.$(OBJEXT) $<
 
 # Several generically implemented functions also require separate
 # assembly of their generic back-end support routines.
 #
 x87%.$(OBJEXT): %_generic.sx
-	$(CC) -c $(ALL_CPPFLAGS) $(ASFLAGS) -o $@ $<
+	$(COMPILE.sx) -o $@ $<
 
 # Historically, MinGW.org's libm.a has been a dummy, delivering
 # nothing of value; FIXME: IMO, this sucks; it should deliver the
@@ -506,7 +519,7 @@ x87%.$(OBJEXT): %_generic.sx
 all-mingwrt-libs install-mingwrt-libs: libm.a
 libm.a: libm_dummy.$(OBJEXT)
 libm_dummy.c: Makefile
-	echo "static int __mingw_libm_dummy;" > $@
+	echo "int __mingw_libm_dummy;" > $@
 
 # The mingwrt headers define a number of functions which are normally
 # expected to be compiled as inline code.  Each such function must also
@@ -643,11 +656,17 @@ libgmon.a: $(addsuffix .$(OBJEXT), gmon mcount profil)
 #
 DLLVERSION = "0:0:0"
 
+# DLLVERSION must be specified for each DLL file itself, and also for
+# the associated installation and distribution rules; the appropriate
+# dependencies may be specified by use of this function macro:
+#
+optional_dll = mingwrt-$1-optdist install-$1-optional-dll $2
+
 # Generally, we should prefer to have explicit version specifications,
 # relating individually to each DLL; these are specified in VERSION.m4,
 # and propagated here via configure time substitution.
 #
-@MAP_LIBMINGWEX_A_DLLVERSION@
+$(call optional_dll,libmingwex,@MAP_LIBMINGWEX_A_DLLVERSION@)
 
 # For convenience, we implement the DLL build rule in the form of a
 # generic pattern rule, invoked in the form of a request to build any
@@ -800,9 +819,6 @@ install-%-dll-files:
 	$(call INSTALL_DATA,$^,${bindir})
 	$(if $(STRIP_DLL),$(call STRIP_DLL,$^))
 
-$(call optional_dll_version,libmingwex,@MAP_LIBMINGWEX_A_DLLVERSION@)
-optional_dll_version = $(shell echo '$2' | sed s,^[^:]*,install-$1-optional-dll,)
-
 install-optional-dlls: install-mingwrt-optional-dlls
 install-mingwrt-optional-dlls: install-libmingwex-optional-dll
 install-%-optional-dll: %.dll.a bindir libdir
@@ -918,9 +934,6 @@ mingwrt-mandist: %-mandist:
 optdist: mingwrt-optdist
 mingwrt-optdist: mingwrt-libmingwex-optdist
 
-$(call optional_dll_package,libmingwex,@MAP_LIBMINGWEX_A_DLLVERSION@)
-optional_dll_package = $(shell echo '$2' | sed s,^[^:]*,mingwrt-$1-optdist)
-
 mingwrt-%-optdist:
 	$(RM) -r tmp
 	$(MAKE) --no-print-directory prefix=`pwd`/tmp install-strip-$*-optional-dll
@@ -953,7 +966,7 @@ mingwrt-srcdist-package-files: $(wildcard ${mingwrt_srcdir}/*.[chs]) \
   $(wildcard ${mingwrt_srcdir}/*.def.in) $(wildcard ${mingwrt_srcdir}/config*) \
   $(addprefix ${mingwrt_srcdir}/,include man mingwex msvcrt-xref profile) \
   $(addprefix ${mingwrt_srcdir}/,TODO Makefile.in crtdll.def) \
-  $(wildcard ${mingwrt_srcdir}/*.txt)
+  $(wildcard $(addprefix ${mingwrt_srcdir}/,*.sx *.txt))
 
 mingwrt-srcdist-testsuite-files: $(wildcard ${mingwrt_srcdir}/tests/*.at)
 mingwrt-srcdist-testsuite-files: $(wildcard ${mingwrt_srcdir}/tests/*.in)

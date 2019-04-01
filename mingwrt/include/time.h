@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2007, 2011, 2015, 2016, MinGW.org Project.
+ * Copyright (C) 1997-2007, 2011, 2015-2018, MinGW.org Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -423,6 +423,48 @@ int nanosleep( const struct timespec *period, struct timespec *residual )
     ? (unsigned)(-1) : (unsigned)(period->tv_nsec));
 }
 #endif	/* !__NO_INLINE__ */
+
+#if _POSIX_C_SOURCE >= 199309L
+/* POSIX.1b-1993 introduced the optional POSIX clocks API; it
+ * was subsequently moved to "base", as of POSIX.1-2008, to the
+ * extent required to support the CLOCK_REALTIME feature, with
+ * the remainder of its features remaining optional.  We choose
+ * to provide a subset, supporting CLOCK_MONOTONIC in addition
+ * to the aforementioned CLOCK_REALTIME feature.
+ *
+ * We define the POSIX clockid_t type as a pointer to an opaque
+ * structure; user code should never need to know details of the
+ * internal layout of this structure.
+ */
+typedef struct __clockid__ *clockid_t;
+
+/* POSIX prefers to have the standard clockid_t entities defined
+ * as macros, each of which represents an entity of type clockid_t.
+ * Since this is not an integer data type, POSIX does not strictly
+ * require such macros to expand to constant expressions; however,
+ * some ill-behaved applications, (GCC's Ada implementation is one
+ * such), depend on such expansions.  Thus, although it will incur
+ * a small additional run-time overhead to interpret them, we map
+ * such entities in terms of pseudo-pointer references, (which we
+ * discriminate from real pointer references, which we assume to
+ * be always to even valued addresses, by forcing odd values for
+ * the pseudo-pointer references).
+ */
+#define __MINGW_POSIX_CLOCKAPI(ID)  ((clockid_t)(1 + ((ID) << 1)))
+
+/* The standard clockid_t entities which we choose to support.
+ */
+#define CLOCK_REALTIME  __MINGW_POSIX_CLOCKAPI (0)
+#define CLOCK_MONOTONIC __MINGW_POSIX_CLOCKAPI (1)
+
+/* Prototypes for the standard POSIX functions which provide the
+ * API to these standard clockid_t entities.
+ */
+int clock_getres (clockid_t, struct timespec *);
+int clock_gettime (clockid_t, struct timespec *);
+int clock_settime (clockid_t, const struct timespec *);
+
+#endif	/* _POSIX_C_SOURCE >= 199309L */
 #endif	/* _POSIX_C_SOURCE */
 
 _END_C_DECLS

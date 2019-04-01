@@ -1,3 +1,123 @@
+2019-04-01  Keith Marshall  <keith@users.osdn.me>
+
+	Merge post 2017-11-09 changes from 5.2-trunk.
+
+	* VERSION.m4 (__VERSION__): Preserve 6.0-exp setting.
+	(LIBMINGWEX_A_DLLVERSION): Preserve 5.2-trunk setting.
+
+	* README (winapi): Delete reference; change it to...
+	(wslapi): ...this.
+
+2019-02-02  Keith Marshall  <keith@users.osdn.me>
+
+	Add build option for <features.h> sample distribution.
+
+	* configure.ac (lua): Add AC_PATH_PROG check; assign result to...
+	(LUA): ...this new AC_SUBST propagated macro definition.
+
+	* Makefile.in (dist): Add dependencies on...
+	(dist-prepare, dist-extra): ...these new goals; implement...
+	(dist-prepare): ...to initialize an empty staging directory, and...
+	(dist-extra): ...incorporate optional distributable components.
+	(features.stamp): New optional goal; selected by definition of...
+	(FEATURES): ...this user specified macro, nominally defined by...
+	(option, options): ...evaluation of command line assignment.
+	(features.lua, features.unsupported): New prerequisite goals.
+	(WSL_TMPDIR, FEATURES_H_INITIALIZE, FEATURES_CFG, LUA, LUACMD)
+	(TODAY, ISSUE): New supporting macros; define them.
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Adjust repository version following WSL-5.2.1 release.
+
+	* VERSION.m4 (__VERSION__): Increment it to 5.2.2
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.2.1 release.
+
+	* All files (wsl-5.2.1-release): Tag assigned.
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Incorporate user-customized <features.h> configuration.
+
+	* Makefile.comm (_mingw.h): Add prerequisite dependency on...
+	(features.h): ...this; add rule to create a build-time stub, an empty
+	file, yielding the default fall-back configuration.
+
+	* var/features.lua: New direcctory/file; this implements the mingw-get
+	post-install action, which is required to integrate management of user
+	maintained <features.h> configuration alongside project updates.
+
+2018-12-23  Keith Marshall  <keith@users.osdn.me>
+
+	Adjust repository version following WSL-5.2 release.
+
+	* VERSION.m4 (__VERSION__): Increment it to 5.2.1
+
+2018-12-23  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.2 release.
+
+	* All files (wsl-5.2-release): Tag assigned.
+
+2018-09-04  Keith Marshall  <keith@users.osdn.me>
+
+	Pre-empt default EXEEXT use before its determination.
+
+	* aclocal.m4 (MINGW_AC_NO_EXECUTABLES): Assign an initial assumed
+	$ac_exeext value of ".xyz"; it will be updated appropriately, when
+	an actual EXEEXT determination has been completed.
+
+2018-09-03  Keith Marshall  <keith@users.osdn.me>
+
+	Adjust repository version following WSL-5.1.1 release.
+
+	* All files (5.2-trunk): New development branch; switch to it.
+	* VERSION.m4 (__VERSION__): Increment it to 5.2
+	(libmingwex.dll.a): Update ABI version identifier.
+
+2018-09-03  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.1.1 release.
+
+	* All files (wsl-5.1.1-release): Tag assigned.
+
+2018-07-13  Keith Marshall  <keith@users.osdn.me>
+
+	Advertise new canonical URI for source code repository.
+
+	* README (Important Notice): New section; identify new canonical
+	repository URIs; note obsolescence of old repositories.
+
+2018-02-26  Keith Marshall  <keith@users.osdn.me>
+
+	Adjust repository version following WSL-5.1 release.
+
+	* VERSION.m4 (__VERSION__): Increment it to 5.1.1
+
+2018-02-26  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.1 release.
+
+	* All files (wsl-5.1-release): Tag assigned.
+	* VERSION.m4 (libmingwex.dll.a): Update ABI version identifier.
+
+2017-12-06  Keith Marshall  <keith@users.osdn.me>
+
+	Adjust repository version following WSL-5.0.2 release.
+
+	* VERSION.m4 (__VERSION__): Increment it to 5.1; no further patch
+	releases are anticipated for development on the 5.0 branch, hence...
+	* All files (5.1-trunk): ...assign new development branch name.
+
+2017-12-06  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.0.2 release.
+
+	* All files (wsl-5.0.2-release): Tag assigned.
+
 2017-11-09  Keith Marshall  <keith@users.osdn.me>
 
 	Avoid an implication that the API is exclusively 32-bit.

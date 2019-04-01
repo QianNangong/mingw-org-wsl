@@ -1,3 +1,495 @@
+2019-04-01  Keith Marshall  <keith@users.osdn.me>
+
+	Merge post 2017-11-09 changes from 5.2-trunk.
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.2.1 release.
+
+	* All files (wsl-5.2.1-release): Tag assigned.
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Incorporate user-customized <features.h> configuration.
+
+	* include/_mingw.h: Include <features.h>, or...
+	[_MINGW_FEATURES_HEADER]: ...nominated alternative header.
+	[!defined __MINGW_FEATURES__]: Provide fall-back definition.
+	(__MINGW_FEATURES_BEGIN__, __MINGW_FEATURES_ENABLE__)
+	(__MINGW_FEATURES_IGNORE__, __MINGW_FEATURES_UNSET__)
+	(__MINGW_FEATURES_END__): New macros; define them.
+
+	* tests/Makefile.in (install-mingwrt): Create <features.h> stub; this
+	is an empty file, yielding the default fall-back configuration.
+
+2019-01-21  Keith Marshall  <keith@users.osdn.me>
+
+	Handle another GCC compile-time warning.
+
+	* mingwex/memalign.c (is_power_of_two): Use in-line expansion...
+	(memalign_is_power_of_two): ...of this new function; this is required
+	to avoid -Wsequence-point warnings, which may arise when testing the
+	result of an assignment expression passed as the macro argument.
+
+2019-01-11  Keith Marshall  <keith@users.osdn.me>
+
+	Fix a mkstemp() file name generator defect.
+
+	* mingwex/cryptnam.c (crypto_random_filename_char): Revert 2018-09-06
+	change; argument type must be unsigned char *, to avoid math errors.
+	(__mingw_crypto_tmpname): Use explicit casts to resolve type conflicts.
+
+2019-01-11  Keith Marshall  <keith@users.osdn.me>
+
+	Fix a <stdio.h> typedef omission.
+
+	* include/stdio.h: Adjust comment formatting.
+	(__need___off64_t) [__MSVCRT__]: Require it, but remove...
+	[!(__STRICT_ANSI__||__NO_MINGW_LFS)]: ...this exclusion filter.
+	[!__MSVCRT__] (__need___off32_t): Require this alternative.
+	(sys/types.h): Include unconditionally.
+
+2018-12-23  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.2 release.
+
+	* All files (wsl-5.2-release): Tag assigned.
+
+2018-12-22  Keith Marshall  <keith@users.osdn.me>
+
+	Correct an optional DLL installation and packaging defect.
+
+	* Makefile.in (optional_dll): New function macro; define it, and...
+	(MAP_LIBMINGWEX_A_DLLVERSION): ...wrap this, replacing all usage of...
+	(optional_dll_version, optional_dll_package): ...these; delete them,
+	together with all dependent references.
+
+2018-12-22  Keith Marshall  <keith@users.osdn.me>
+
+	Update ANSI stdio feature test to accommodate ISO-C11.
+
+	* include/_mingw.h.in (__USE_MINGW_ANSI_STDIO): Add a deprecation
+	warning, for ill-advised direct definition in user code; include...
+	(_ISOC11_SOURCE): ...this new user defined feature test macro as a
+	further indirect enabling condition.
+
+2018-12-20  Keith Marshall  <keith@users.osdn.me>
+
+	Implement test suite for aligned heap management API.
+
+	* tests/testsuite.at.in: Include...
+	* tests/memalign.at: ...this new file; it replaces...
+	* mingwex/tst-aligned-malloc.c: ...this; delete it.
+
+2018-12-20  Keith Marshall  <keith@users.osdn.me>
+
+	Reimplement aligned heap management API.
+
+	* mingwex/mingw-aligned-malloc.c: Delete it; it is replaced by...
+	* mingwex/memalign.c: ...this new file; it reimplements...
+	(__mingw_aligned_offset_malloc, __mingw_aligned_offset_realloc)
+	(__mingw_aligned_free): ...each of these public API functions; also...
+	(__mingw_realloc, __mingw_free): ...adds these new public functions,...
+	(__mingw_memalign_base, __mingw_memalign_realloc): ...these private,
+	but globally exposed, supporting functions, and additionally...
+	(__mingw_memalign_lwm): ...this global, private use, variable.
+
+	* include/stdlib.h (__mingw_realloc, __mingw_free): Declare prototypes.
+
+	* include/malloc.h (__mingw_aligned_malloc, __mingw_aligned_realloc):
+	Implement them in-line; export them, via __LIBIMPL__, to libmingwex.a
+	(_aligned_malloc, __mingw_aligned_malloc, _aligned_offset_malloc)
+	(__mingw_aligned_offset_malloc): Add __MINGW_ATTRIB_MALLOC attribute.
+	[__MSVCRT_VERSION__ < __MSVCR70_DLL] (_aligned_malloc, _aligned_free)
+	(_aligned_realloc, _aligned_offset_malloc, _aligned_offset_realloc):
+	Implement them in-line, as wrappers around their MinGW alternatives;
+	export them, via __LIBIMPL__, to new library, libmemalign.a
+
+	* Makefile.in (LIBMINGWEX_MEMALIGN): New macro; define it; derive...
+	(LIBMINGWEX_MEMALIGN_OBJECTS): ...this macro; add compilation rule.
+	(libmingwex.a): Add $LIBMINGWEX_MEMALIGN_OBJECTS; they replace...
+	(mingw-aligned-malloc.$OBJEXT): ...this; remove dependency.
+	(all-mingwrt-libs, install-mingwrt-libs): Add libmemalign.a
+	(msvcrt_repl_funcs): Add alias references for...
+	(free, realloc): ...these.
+
+2018-12-04  Keith Marshall  <keith@users.osdn.me>
+
+	Reimplement Win9x specific fseek()/fwrite() redirector.
+
+	* include/stdio.h [__USE_MINGW_FSEEK]: Deprecate support for direct
+	user definition; deduce it, as an internal private definition, from...
+	[_WIN32_WINDOWS]: ...this, when appropriately defined for Win9x.
+	[__USE_MINGW_FSEEK] (__mingw_fseek): Declare new prototype; map it as
+	multiple __CRT_ALIAS inline function overrides for each of...
+	(fseek, _fseeki64, fseeko64): ...these.
+	[__USE_MINGW_FSEEK] (__mingw_fwrite): Likewise, overriding...
+	(fwrite): ...this.
+	(__mingw_fseeko64): Delete all references; it is no longer provided,
+	nor required.
+
+	* mingwex/stdio/fwrite.c: New file; it reimplements the Win9x
+	fseek()/fwrite() function redirector interface, and thus replaces...
+	* mingex/ming-fseek.c: ...this; delete it.
+
+	* Makefile.in (libmingwex.a): Remove dependency on...
+	(mingw-fseek.$OBJEXT): ...this object module; replace it with...
+	(fwrite.$OBJEXT): ...this alternative dependency.
+
+2018-12-04  Keith Marshall  <keith@users.osdn.me>
+
+	Implement POSIX.1-1996 linked-list queue management API.
+
+	* mingwex/insque.c mingwex/remque.c: New files; they implement the
+	POSIX.1-1996 insque(), and remque() functions, respectively.
+
+	* include/search.h (insque, remque): Declare function prototypes.
+
+	* Makefile.in (libmingwex.a): Add dependencies on...
+	(insque.$OBJEXT, remque.$OBJEXT): ...these.
+
+2018-11-25  Keith Marshall  <keith@users.osdn.me>
+
+	Emulate _fseeki64()/_ftelli64() API on legacy platforms.
+
+	* mingwex/stdio/fseeki64.c: New file; it implements...
+	(__mingw_fseeki64, fseeko64): ...both of these functions, avoiding any
+	dependency on undocumented internal implementation details of...
+	(fpos_t): ...this opaque data type, and replacing...
+	* mingwex/stdio/fseeko64.c: ...this; delete it.
+
+	* mingwex/stdio/ftelli64.c: New file; it implements...
+	(_ftelli64, ftello64): ...both of these, again avoiding any dependency
+	on undocumented internal implementation details of...
+	(fpos_t): ...this opaque data type.
+
+	* include/stdio.h (fpos_t): Make it more effectively opaque.
+	(__mingw_fseeki64, __mingw_ftelli64): Declare them for legacy use.
+	[_WIN32_WINNT < VISTA && __MSVCRT_VERSION__ < MSVCR80_DLL] (_fseeki64)
+	(_ftelli64): Map inline emulations, to "__mingw" prefixed names.
+	(ftello64): Remove inline implementation.
+
+	* Makefile.in (libmingwex.a): Add references to...
+	(fseeki64.$OBJEXT, ftelli64.$OBJEXT): these; remove reference to...
+	(fseeko64.$OBJEXT): ...this.
+
+2018-10-21  Keith Marshall  <keith@users.osdn.me>
+
+	Update <conio.h> and <wchar.h> header files.
+
+	* include/conio.h: Tidy layout; assert copyright.
+	[_CONIO_H_]: Rename multiple inclusion guard macro, to conform to...
+	[_CONIO_H]: ...this preferred convention; do not define when...
+	[__WCHAR_H_SOURCED__]: ...this selective inclusion condition applies.
+	[__need_wint_t, __need_wchar_t]: Define them; include <stddef.h>...
+	(wint_t, wchar_t): ...for these corresponding data type definitions.
+	[_WIN32_WINNT >= WINXP || __MSVCRT_VERSION__ >= __MSVCR70_DLL]
+	(_getwch, _getwche, _ungetwch, _putwch): Declare function prototypes.
+	[__MSVCRT_VERSION__>=__MSVCR80_DLL] (_getch_nolock, _getche_nolock)
+	(_ungetch_nolock, _putch_nolock, _getwch_nolock, _getwche_nolock)
+	(_ungetwch_nolock, _putwch_nolock): Likewise.
+	[_BEGIN_C_DECLS, _END_C_DECLS]: Use them.
+
+	* include/wchar.h: Selectively include <conio.h>, for...
+	(_getwch, _getwche, _ungetwch): ...these function prototypes, and...
+	[__MSVCRT_VERSION__>=__MSCVCR80_DLL] (_getwch_nolock)
+	(_getwche_nolock, _ungetwch_nolock): ...these.
+
+2018-10-18  Keith Marshall  <keith@users.osdn.me>
+
+	Map compile-time constant references for POSIX clocks.
+
+	* include/time.h (CLOCK_REALTIME, CLOCK_MONOTONIC): Redefine, using...
+	(__MINGW_POSIX_CLOCKAPI): ...this new macro; it converts clock indices
+	to odd-valued compile-time constant pseudo-pointers, (distinguishable
+	from real pointers which are always even-valued), which may be passed
+	as clockid_t references in POSIX clock API function calls.
+
+	* mingwex/clockapi.h (struct __clockid__): Specify 4-byte alignment.
+	(__clock_api_is_valid): Change return type to "clockid_t".
+
+	* mingwex/clockapi.c (__clock_api_is_valid): Return an even-valued,
+	non-NULL, "clockid_t" reference pointer, or "NULL" if invalid; use...
+	(clock_reference): ...this new static inline function, to convert...
+	(CLOCK_REALTIME, CLOCK_MONOTONIC): ...these odd-valued pseudo-pointers
+	to their actual run-time pointer equivalents; delete their physical
+	initializations, which have now become invalid.
+
+	* mingwex/clockres.c (clock_getres)
+	* mingwex/clocktime.c (clock_gettime)
+	* mingwex/clockset.c (clock_settime): Update the "clockid_t" argument
+	to match the real pointer returned by __clock_api_is_valid()
+
+2018-10-08  Keith Marshall  <keith@users.osdn.me>
+
+	Suppress autoconf detection of _aligned_malloc functions.
+
+	* msvcrt-xref/msvcrt.def.in (_aligned_malloc, _aligned_free)
+	(_aligned_offset_malloc, _aligned_realloc, _aligned_offset_realloc):
+	Mark as requiring dlsym() lookup, when linking with MSVCRT.DLL
+
+2018-10-07  Keith Marshall  <keith@users.osdn.me>
+
+	Make alloca() API both GNU and Microsoft compatible.
+
+	* include/malloc.h: Tidy layout; assert copyright.
+	(_MALLOC_H_): Rename guard macro, for conformance with...
+	(_MALLOC_H): ...this preferred guard macro naming convention.
+	(GCC system_header): Add pragma, declaring it as such.
+	[__MSVCRT_VERSION__ >= 0x0700]: Express symbolically, guarding...
+	(_aligned_malloc, _aligned_offset_malloc)
+	(_aligned_realloc, _aligned_offset_realloc)
+	(_aligned_recalloc, _aligned_offset_recalloc): ...these...
+	[__MSVCRT_VERSION__>=__MSVCR70_DLL]: ...thus.
+	[_BEGIN_C_DECLS, _END_C_DECLS]: Use them.
+	(alloca, _alloca): Factor them out, then include from...
+	* include/alloca.h: ...this new header file; it reimplements...
+	(alloca, _alloca): ...these, such that they remain Microsoft
+	compatible, while adding GNU conformity, either explicitly when
+	included by user code, or conditionally when included by...
+	* include/stdlib.h [!__STRICT_ANSI__]: ...this.
+
+	* tests/headers.at: Regenerated by "make check".
+	(MINGWRT_AT_PACKAGE_HEADERS): Add alloca.h
+
+2018-09-06  Keith Marshall  <keith@users.osdn.me>
+
+	Avoid unwanted GCC warning diagnostic messages.
+
+	* Makefile.in (libm_dummy.c): Remove "static" qualifier from...
+	(__mingw_libm_dummy): ...this variable; it caused "-Wunused-variable"
+	warning diagnostics, when compiled with "-Wall".
+
+	* main.c (WinMain): Remove unnecessary argument names from prototype.
+	(main): Make its argument list conform to convention, otherwise it
+	causes a "-Wmain" warning diagnostic when compiled with "-Wall".
+
+	* mingwex/clocktime.c (clock_gettime) [clock_id-type]
+	* mingwex/clockapi.c (clock_api_getres_interval) [clock_api->type]:
+	Ensure that switches include default cases; this avoids a "-Wswitch"
+	warning diagnostic message, in each case, when compiled with "-Wall".
+
+	* mingwex/cryptnam.c (crypto_random_filename_char): Remove "unsigned"
+	qualifier from both argument and return type; this avoids an argument
+	type mismatch, raising a "-Wpointer-sign" warning when called from...
+	(__mingw_crypto_tmpname): ...here, and compiled with "-Wall".
+
+	* mingwex/imaxdiv.c: Tidy layout; assert copyright.
+	(lldiv): Correct return type; explicitly disable "-Wattribute-alias"
+	diagnostic messages, under GCC pragma control.
+
+	* mingwex/ofmt.c [__crtofmt__] (__mingw_set_output_format_fallback)
+	[__crtnfmt__] (__mingw_get_printf_count_output_fallback): Likewise,
+	disable "-Wattribute-alias" diagnostics.
+
+	* mingwrt/mingwex/stdio/pformat.c (__pformat_ignore_flags): Adjust
+	layout, to avoid a "-Wmisleading-indentation" warning diagnostic.
+	(__pformat_argmap) [length]: Add a no-op default case, to avoid a
+	"-Wswitch" warning diagnostic message.
+
+	* mingwrt/profile/mcount.c: Explicitly disable "-Wframe-address"
+	diagnostics, under GCC pragma control, to avoid warnings relating...
+	(__builtin_return_address): ...this, when called from...
+	(mcount): ...here.
+
+	* mingwrt/setargv.c (__mingw_setargv): Insert parentheses, as advised,
+	to eliminate "-Wparentheses" diagnostic messages.
+
+2018-09-03  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.1.1 release.
+
+	* All files (wsl-5.1.1-release): Tag assigned.
+
+2018-09-02  Keith Marshall  <keith@users.osdn.me>
+
+	Make clockapi symbolic constants #ifdef detectable.
+
+	* mingwex/clockapi.c (CLOCK_REALTIME, CLOCK_MONOTONIC): Add "const".
+	* include/time.h (CLOCK_REALTIME, CLOCK_MONOTONIC): Likewise; also
+	define both as self-referencing macros.
+
+2018-08-26  Keith Marshall  <keith@users.osdn.me>
+
+	Circumvent <process.h> testsuite failure with GCC-7+.
+
+	* include/process.h (execv, execve, execvp): Subject declarations to
+	#pragma GCC diagnostic ignored "-Wbuiltin-declaration-mismatch", if...
+	[__cplusplus && __IN_MINGWRT_TESTSUITE__ && __GNUC__ >= 7]: ...this.
+
+2018-04-16  Keith Marshall  <keith@users.osdn.me>
+
+	Suppress glob-brace expansion within quoted arguments.
+
+	* setargv.c (__mingw32_setargv) [quoted]: Handle '{', ',', and '}'
+	in the same manner as '*', and '?'.
+
+2018-04-16  Keith Marshall  <keith@users.osdn.me>
+
+	Suppress glob-brace expansion of single item lists.
+
+	* mingwex/glob.c (glob_match) [c == '{']: Look-ahead to matching '}';
+	ignore intervening nested '{' ... '}' expression groups, and suppress
+	special interpretation of '{' if '\0' encountered before '}' at outer
+	nesting level, or if no unescaped ',' found within outer expression.
+
+2018-02-26  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.1 release.
+
+	* All files (wsl-5.1-release): Tag assigned.
+
+2018-02-22  Keith Marshall  <keith@users.osdn.me>
+
+	Correct <sys/timeb.h> 32-bit vs. 64-bit time_t anomalies.
+
+	* include/sys/timeb.h: Assert copyright; tidy layout.
+	(_TIMEB_H_): Original multiple inclusion guard macro; rename it...
+	(_SYS_TIMEB_H): ...conforming to this preferred naming convention.
+	(GCC system_header): Add pragma, asserting it as such a header.
+	(__need_time_t): Define for selective <sys/types.h> inclusion.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them as appropriate.
+	(pragma pack): Push to pack all structs with 2-byte alignment.
+	(struct timeb): Mark as deprecated, from POSIX.1-2001 onwards.
+	(ftime): Likewise, mark as deprecated; always emulate it by in-line
+	redirection to _ftime(), however this may be implemented.
+	(struct __timeb32): Make its definition unconditionally visible.
+	(_ftime32) [__MSVCRT_VERSION__ >= __MSVCR80_DLL]: Declare prototype.
+	(_ftime32) [_WIN64 || _WIN32_WINNT >= _WIN32_WINNT_VISTA]: Likewise,
+	otherwise emulate it by in-line redirection to 32-bit _ftime().
+	(struct __timeb64, _ftime64): Make visibility condition symbolic...
+	[__MSVCRT_VERSION__ >= __MSVCR61_DLL]: ...thus; add visibility for...
+	[_WIN64 || _WIN32_WINNT >= _WIN32_WINNT_WIN2K]: ...these alternatives.
+	(_ftime) [__MSVCRT_VERSION__ < __MSVCR80_DLL]: Declare prototype.
+	(_ftime) [__MSVCRT_VERSION__ >= __MSVCR80_DLL]: Emulate it...
+	[_USE_32BIT_TIME_T]: ...by in-line redirection to _ftime32(), else...
+	[!_USE_32BIT_TIME_T]: ...to _ftime64().
+
+	* tests/headers.at [sys/timeb.h]: Suppress "deprecated" warnings.
+
+2018-02-22  Keith Marshall  <keith@users.osdn.me>
+
+	Correct Windows version support for <utime.h> functions.
+
+	* include/sys/utime.h: Tidy layout; assert copyright.
+	(_UTIME_H_): Rename this repeat inclusion guard macro...
+	(_SYS_UTIME_H): ...to this, for consistency with current practice.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them, as appropriate.
+	(struct __utimbuf32): Define it unconditionally; remove...
+	[__MSVCRT_VERSION__>=0x0800]: ...this prerequisite.
+	(_utime32, _wutime32, _futime32): Declare them for...
+	[_WIN32_WINNT >= _WIN32_WINNT_VISTA]: ...this, in addition to...
+	[__MSVCRT_VERSION__>=__MSVCR80_DLL]: ...this original condition, but
+	also emulate them in-line, if neither condition applies.
+	[__MSVCRT_VERSION__>=__MSVCR80.DLL] (_utime, _wutime, _futime):
+	Implement them in-line, delegating each respectively to...
+	[_USE_32BIT_TIME_T] (_utime32, _wutime32, _futime32): ...these, or...
+	[!_USE_32BIT_TIME_T] (_utime64, _wutime64, _futime64): ...to these.
+	[__MSVCRT_VERSION__>=__MSVCR80.DLL] (utime): Implement in-line, or...
+	[__MSVCRT_VERSION__<__MSVCR80.DLL] (utime): ...declare it.
+
+2018-01-17  Keith Marshall  <keith@users.osdn.me>
+
+	Fix faulty POSIX deprecation warning logic.
+
+	* include/_mingw.h.in (__POSIX_2008_DEPRECATED): Do not nest...
+	(__POSIX_2001_DEPRECATED): ...within defininion of this; similarly...
+	(__POSIX_1995_DEPRECATED): ...neither within this; rename this as...
+	(__POSIX_1996_DEPRECATED): ...this; although conditional upon...
+	[_POSIX_C_SOURCE >= 199506L]: ...this, the corresponding standard was
+	eventually ratified, not as POSIX.1-1995, but as POSIX.1-1996
+
+2017-12-28  Keith Marshall  <keith@users.osdn.me>
+
+	Fix a build issue, assembling generic SX files.
+
+	* Makefile.in (%_generic.sx): Always use $(COMPILE.sx) to pre-process
+	and assemble these; with $(CC) -c $(ALL_CPPFLAGS) $(ASFLAGS), versions
+	of GCC, prior to GCC-4.3, will fail to identify the source file suffix
+	correctly, resulting in failure to assemble the code.
+
+2017-12-18  Keith Marshall  <keith@users.osdn.me>
+
+	Support strtok() re-entrancy, per request [#2342].
+
+	* mingwex/strtok_r.c: New file; it implements...
+	(strtok_r): ...this function, per POSIX.1-1995 specification.
+	* Makefile.in (libmingwex.a): Add reference; make it depend on...
+	(strtok_r.$OBJEXT): ...this.
+
+	* include/string.h: Declare corresponding runtime API.
+	[_POSIX_C_SOURCE >= 199506L] (strtok_r): Add function prototype.
+	[__MSVCRT_VERSION__ >= __MSVCR80_DLL] (strtok_s): Likewise; this is
+	the Microsoft equivalent function, first introduced in this non-free
+	MSVC runtime library; subsequently available in MSVCRT.DLL since...
+	[_WIN32_WINNT >= _WIN32_WINNT_VISTA]: ...this release, likewise.
+
+2017-12-16  Keith Marshall  <keith@users.osdn.me>
+
+	Implement autotest module for POSIX clock API functions.
+
+	* tests/clockapi.at: New file.
+	* tests/testsuite.at.in (clockapi.at): Incorporate it.
+
+2017-12-15  Keith Marshall  <keith@users.osdn.me>
+
+	Implement a subset of the POSIX.1b-1993 clock API.
+
+	* include/time.h [_POSIX_C_SOURCE >= 199309L]
+	(clockid_t): New structured data type; define it opaquely, and...
+	(CLOCK_REALTIME, CLOCK_MONOTONIC): ...declare these extern instances.
+	(clock_getres, clock_gettime, clock_settime): New functions; declare
+	prototypes.
+
+	* mingwex/clockapi.h mingwex/clockapi.c mingwex/clockres.c
+	* mingwex/clockset.c mingwex/clocktime.c: New files; they implement
+	the preceding clock instances, and associated API functions.
+
+	* include/sys/time.h [_POSIX_C_SOURCE >= 200809L] (gettimeofday):
+	Mark it as "deprecated".
+
+2017-12-14  Keith Marshall  <keith@users.osdn.me>
+
+	Add support for POSIX.1 "obsolescence" warnings.
+
+	* include/_mingwrt.h.in (__POSIX_1995_DEPRECATED)
+	(__POSIX_2001_DEPRECATED, __POSIX_2008_DEPRECATED): New macros; define
+	them, such as each is conditional on the specific value assigned to...
+	[_POSIX_C_SOURCE]: ...this feature test macro, as the equivalent of...
+	(__MINGW_ATTRIB_DEPRECATED): ...this, or of nothing, as appropriate.
+
+2017-12-06  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.0.2 release.
+
+	* All files (wsl-5.0.2-release): Tag assigned.
+
+	* Makefile.in (mingwrt-srcdist-package-files): Add reference...
+	* $mingwrt_srcdir/*.sx: ...for files matching this template.
+
+2017-12-02  Keith Marshall  <keith@users.osdn.me>
+
+	Provide legacy OS work around for issue [#2357]
+
+	* cpu_features.c: Delete; replace it with...
+	* cpu_features.sx: ...this new assembly language file.
+
+	* cpu_features.h [__ASSEMBLER__]
+	(__cpu_features, __cpu_features_init): Suppress declarations.
+
+	* Makefile (%.sx): Add $srcdir vpath reference.
+
+2017-11-28  Keith Marshall  <keith@users.osdn.me>
+
+	Handle indeterminate FLT_EVAL_METHOD; fix issue [#2352].
+
+	* include/math.h [FLT_EVAL_METHOD == 0 || FLT_EVAL_METHOD == 1]
+	(float_t, double_t): Define them explicitly, as appropriate for each
+	of these two specific cases only; otherwise, define them as if for...
+	[FLT_EVAL_METHOD == 2]: ...this explicit case, but also apply it as a
+	suitable default compromise for the indeterminate case, in which...
+	[FLT_EVAL_METHOD != 2]: ...emit indeterminacy warning.
+
 2017-11-09  Keith Marshall  <keith@users.osdn.me>
 
 	Avoid an implication that the API is exclusively 32-bit.

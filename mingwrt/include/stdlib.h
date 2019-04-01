@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2009, 2011, 2014-2016, MinGW.org Project.
+ * Copyright (C) 1997-2009, 2011, 2014-2016, 2018, MinGW.org Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -481,10 +481,6 @@ _CRTIMP __cdecl __MINGW_NOTHROW  int mbtowc (wchar_t *, const char *, size_t);
 _CRTIMP __cdecl __MINGW_NOTHROW  int rand (void);
 _CRTIMP __cdecl __MINGW_NOTHROW  void srand (unsigned int);
 
-_CRTIMP __cdecl __MINGW_NOTHROW  void *calloc (size_t, size_t) __MINGW_ATTRIB_MALLOC;
-_CRTIMP __cdecl __MINGW_NOTHROW  void *malloc (size_t) __MINGW_ATTRIB_MALLOC;
-_CRTIMP __cdecl __MINGW_NOTHROW  void *realloc (void *, size_t);
-_CRTIMP __cdecl __MINGW_NOTHROW  void free (void *);
 _CRTIMP __cdecl __MINGW_NOTHROW  void abort (void) __MINGW_ATTRIB_NORETURN;
 _CRTIMP __cdecl __MINGW_NOTHROW  void exit (int) __MINGW_ATTRIB_NORETURN;
 
@@ -494,6 +490,29 @@ int __cdecl __MINGW_NOTHROW atexit (void (*)(void));
 
 _CRTIMP __cdecl __MINGW_NOTHROW  int system (const char *);
 _CRTIMP __cdecl __MINGW_NOTHROW  char *getenv (const char *);
+
+#ifndef __STRICT_ANSI__
+/* For GNU compatibility, in addition to the standard memory allocation
+ * functions (declared below), we also include the non-standard alloca()
+ * API declarations here, in accordance with GNU convention.
+ */
+# include "alloca.h"
+#endif	/* !__STRICT_ANSI__ */
+
+_CRTIMP __cdecl __MINGW_NOTHROW  void *calloc (size_t, size_t) __MINGW_ATTRIB_MALLOC;
+_CRTIMP __cdecl __MINGW_NOTHROW  void *malloc (size_t) __MINGW_ATTRIB_MALLOC;
+_CRTIMP __cdecl __MINGW_NOTHROW  void *realloc (void *, size_t);
+_CRTIMP __cdecl __MINGW_NOTHROW  void free (void *);
+
+/* The following pair of MinGW alternatives to realloc() and free() are
+ * always suitable as substitutes for their MSVCRT.DLL counterparts; the
+ * advantage of such substitutions is that these alternatives are able to
+ * operate on heap memory which has been allocated by the MinGW aligned
+ * memory allocation API functions, (but NOT the corresponding Microsoft
+ * functions), in addition to memory allocated by malloc() or calloc().
+ */
+__cdecl __MINGW_NOTHROW  void *__mingw_realloc (void *, size_t);
+__cdecl __MINGW_NOTHROW  void __mingw_free (void *);
 
 /* bsearch() and qsort() are declared both here, in <stdlib.h>, and in
  * non-ANSI header <search.h>; we reproduce these declarations in both,

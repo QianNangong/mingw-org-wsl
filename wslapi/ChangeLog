@@ -1,9 +1,478 @@
+2019-04-01  Keith Marshall  <keith@users.osdn.me>
+
+	Merge post 2017-11-09 changes from 5.2-trunk.
+
+2019-02-03  Keith Marshall  <keith@users.osdn.me>
+
+	Clean up winsock default version selection stratagem.
+
+	* include/winsock.h [_WINSOCK_H]: Defer definition until within new
+	internal recursion breaking retest block; following evaluation of...
+	[__USE_MINGW_WINSOCK_DEFAULT]: ...this, whence <winsock2.h> may be
+	included, reproducing the original version selection logic from...
+	* include/_winsock.h: ...here; file is now obsolete; delete it.
+
+	* include/winsock2.h (__USE_MINGW_WINSOCK_DEFAULT): Undefine it,
+	before including <winsock.h>
+
+	* include/windows.h include/nspapi.h include/wsnetbs.h: Define...
+	(__USE_MINGW_WINSOCK_DEFAULT): ...this, and then include <winsock.h>
+	instead of deleted file <_winsock.h>
+
+	* tests/headers.at: Regenerated.
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.2.1 release.
+
+	* All files (wsl-5.2.1-release): Tag assigned.
+
+2019-01-22  Keith Marshall  <keith@users.osdn.me>
+
+	Incorporate user-customized <features.h> configuration.
+
+	* tests/Makefile.in (install-mingwrt-headers): Create <features.h>
+	stub; this is an empty file, yielding the default configuration.
+
+2018-12-23  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.2 release.
+
+	* All files (wsl-5.2-release): Tag assigned.
+
+2018-12-18  Keith Marshall  <keith@users.osdn.me>
+
+	Make <winver.h> header effectively self-contained.
+
+	* include/winver.h: Include <windef.h>
+
+2018-11-23  Keith Marshall  <keith@users.osdn.me>
+
+	Fix MinGW-Bug #2248 (SF ticket).
+
+	* include/commctrl.h (NMPGSCROLL): Set packing to 1-byte alignment.
+	(NMPGSCROLL.fwKeys): Change type from BOOL to WORD.
+
+2018-11-23  Keith Marshall  <keith@users.osdn.me>
+
+	Apply some more cosmetic layout adjustments.
+
+	* include/commctrl.h: Keep 'typedef' and 'struct' on a single line,
+	for each untagged aggregate type definition.
+
+2018-11-18  Jelle Geerts  <heisenbug@users.osdn.me>
+
+	Fix MinGW-Bug #38736 (OSDN ticket).
+
+	* include/commctrl.h (DTM_SETFORMATW): Correct definition; was 0x1050,
+	but should be equivalent to 0x1000 + 50, which is actually 0x1032.
+
+2018-11-18  Keith Marshall  <keith@users.osdn.me>
+
+	Make <commctrl.h> header effectively self-contained.
+
+	* include/commctrl.h: Tidy layout; assert copyright.
+	Include <winbase.h> and <prsht.h>; both are required to resolve
+	inter-header dependencies, so achieving effective self-containment.
+	Correctly parenthesize argument references in macro definitions.
+	(pragma GCC system_header): Remove redundant GCC version guard.
+	(_WIN32_WINNT, _WIN32_IE): Always use symbolic version comparisons.
+	(SNDMSG): Remove definition; it is inherited from <prsht.h> anyway.
+	(__AW_ALIAS__, __AW_SUFFIXED__, __AW_STRING_A__, __AW_STRING_W__):
+	Use them; they facilitate maintenance of robust definitions for...
+	[UNICODE vs. ! UNICODE]: ...generic symbols and strings.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them.
+
+2018-11-16  Keith Marshall  <keith@users.osdn.me>
+
+	Make <prsht.h> header effectively self-contained.
+
+	* include/prsht.h: Tidy layout; assert copyright.
+	Include <winuser.h> to resolve inter-header dependencies.
+	Correctly parenthesize argument references in macro definitions.
+	(pragma GCC system_header): Remove redundant GCC version guard.
+	(_WIN32_WINNT, _WIN32_IE): Always use symbolic version comparisons.
+	(SNDMSG, POSTMSG) [ifndef]: Remove guard condition; it prevents GCC
+	from checking consistency of alternative definition sources.
+	(__AW_SUFFIXED__): Use it; it improves robustness of...
+	[UNICODE vs. ! UNICODE]: ...generic definitions.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them.
+
+2018-10-29  Keith Marshall  <keith@users.osdn.me>
+
+	Clean up <wincon.h>; consolidate its version dependencies.
+
+	* include/wincon.h: Tidy layout; assert copyright.
+	[_WIN32_WINNT]: Always compare it symbolically, with respect to...
+	[_WIN32_WINNT_WIN2K, _WIN32_WINNT_WINXP, _WIN32_WINNT_VISTA]: ...each
+	of these; group and consolidate respective version dependencies.
+	(FOREGROUND_BLUE, FOREGROUND_GREEN, FOREGROUND_RED)
+	(FOREGROUND_INTENSITY, BACKGROUND_BLUE, BACKGROUND_GREEN)
+	(BACKGROUND_RED, BACKGROUND_INTENSITY, COMMON_LVB_LEADING_BYTE)
+	(COMMON_LVB_TRAILING_BYTE, COMMON_LVB_GRID_HORIZONTAL)
+	(COMMON_LVB_GRID_LVERTICAL, COMMON_LVB_GRID_RVERTICAL)
+	(COMMON_LVB_REVERSE_VIDEO, COMMON_LVB_UNDERSCORE, CTRL_C_EVENT)
+	(CTRL_BREAK_EVENT, CTRL_CLOSE_EVENT, CTRL_LOGOFF_EVENT)
+	(CTRL_SHUTDOWN_EVENT, ENABLE_LINE_INPUT, ENABLE_ECHO_INPUT)
+	(ENABLE_PROCESSED_INPUT, ENABLE_WINDOW_INPUT, ENABLE_MOUSE_INPUT)
+	(ENABLE_INSERT_MODE, ENABLE_QUICK_EDIT_MODE, ENABLE_EXTENDED_FLAGS)
+	(ENABLE_AUTO_POSITION, ENABLE_VIRTUAL_TERMINAL_INPUT)
+	(ENABLE_PROCESSED_OUTPUT, ENABLE_WRAP_AT_EOL_OUTPUT)
+	(ENABLE_VIRTUAL_TERMINAL_PROCESSING, DISABLE_NEWLINE_AUTO_RETURN)
+	(ENABLE_LVB_GRID_WORLDWIDE, KEY_EVENT, MOUSE_EVENT)
+	(WINDOW_BUFFER_SIZE_EVENT, MENU_EVENT, FOCUS_EVENT, CAPSLOCK_ON)
+	(ENHANCED_KEY, RIGHT_ALT_PRESSED, LEFT_ALT_PRESSED)
+	(RIGHT_CTRL_PRESSED, LEFT_CTRL_PRESSED, SHIFT_PRESSED, NUMLOCK_ON)
+	(SCROLLLOCK_ON, FROM_LEFT_1ST_BUTTON_PRESSED)
+	(FROM_LEFT_2ND_BUTTON_PRESSED, FROM_LEFT_3RD_BUTTON_PRESSED)
+	(FROM_LEFT_4TH_BUTTON_PRESSED, RIGHTMOST_BUTTON_PRESSED, MOUSE_MOVED)
+	(DOUBLE_CLICK, MOUSE_WHEELED, MOUSE_HWHEELED, CONSOLE_FULLSCREEN)
+	(CONSOLE_FULLSCREEN_HARDWARE, CONSOLE_FULLSCREEN_MODE)
+	(CONSOLE_WINDOWED_MODE, CONSOLE_NO_SELECTION)
+	(CONSOLE_SELECTION_IN_PROGRESS, CONSOLE_SELECTION_NOT_EMPTY)
+	(CONSOLE_MOUSE_SELECTION, CONSOLE_MOUSE_DOWN, HISTORY_NO_DUP_FLAG):
+	Redefine, expressing all values in hexadecimal rather than decimal;
+	this is consistent with Microsoft documentation, and it is also more
+	logical, since all represent bit-flags, bit-fields, or bit-masks.
+
+2018-10-24  Keith Marshall  <keith@users.osdn.me>
+
+	Make <wincon.h> header effectively self-contained.
+
+	* include/wincon.h [_WIN32_WINNT < 0x0600]: Include <windef.h>...
+	[_WIN32_WINNT >= 0x0600]: ...but, Vista and later need <wingdi.h>
+	[__GNUC__ >= 3]: Remove condition; used only in association with...
+	(#pragma GCC system_header): ...this, it is redundant in this context.
+	[_BEGIN_C_DECLS, _END_C_DECLS]: Use them as appropriate.
+
+2018-10-24  David Gressett  <texasgaidheal@users.osdn.me>
+
+	Improve WinXP/Vista console I/O support.
+
+	* include/wincon.h (AddConsoleAlias, GetConsoleAlias)
+	(GetConsoleAliases, GetConsoleAliasExes, GetConsoleAliasesLength)
+	(GetConsoleAliasExesLength, GetConsoleOriginalTitle): New function
+	name aliases; define them, mapping them conditionally to represent...
+	[UNICODE]: ...their corresponding UTF-16LE function names, else...
+	[!UNICODE]: ...their corresponding ASCII/DBCS function names.
+	(COMMON_LVB_LEADING_BYTE, COMMON_LVB_TRAILING_BYTE
+	(COMMON_LVB_GRID_HORIZONTAL, COMMON_LVB_GRID_LVERTICAL)
+	(COMMON_LVB_GRID_RVERTICAL, COMMON_LVB_REVERSE_VIDEO)
+	(COMMON_LVB_UNDERSCORE, ENABLE_VIRTUAL_TERMINAL_INPUT)
+	(ENABLE_VIRTUAL_TERMINAL_PROCESSING, DISABLE_NEWLINE_AUTO_RETURN)
+	(ENABLE_LVB_GRID_WORLDWIDE,(MOUSE_HWHEELED): Define them.
+	(GetConsoleAliasA, GetConsoleAliasW, HandlerRoutine): Declare.
+	(CONSOLE_FULLSCREEN, CONSOLE_FULLSCREEN_HARDWARE): Define when...
+	[_WIN32_WINNT >= 0x0500]: ...this prevails; additionally...
+	(GetConsoleFontSize): ...declare function.
+	(CONSOLE_NO_SELECTION, CONSOLE_SELECTION_NOT_EMPTY)
+	(CONSOLE_SELECTION_IN_PROGRESS, CONSOLE_MOUSE_SELECTION)
+	(CONSOLE_MOUSE_DOWN): Define them; make them visible only when...
+	[_WIN32_WINNT >= 0x0501]: ...this prevails.
+	(struct _CONSOLE_FONT_INFO): Make it visible, only when...
+	[_WIN32_WINNT >= 0x0501]: ...this prevails; when visible, map it to...
+	(CONSOLE_FONT_INFO, PCONSOLE_FONT_INFO): ...these typedefs.
+	(struct _CONSOLE_SELECTION_INFO): Declare it; visible only when...
+	[_WIN32_WINNT >= 0x0501]: ...this prevails; when visible, map it to...
+	(CONSOLE_SELECTION_INFO, PCONSOLE_SELECTION_INFO): ...these typedefs.
+	[_WIN32_WINNT >= 0x0501] (AddConsoleAliasA, AddConsoleAliasW)
+	(GetConsoleAliasesA, GetConsoleAliasesW, GetConsoleAliasExesA)
+	(GetConsoleAliasExesW, GetConsoleAliasesLengthA)
+	(GetConsoleAliasesLengthW, GetConsoleAliasExesLengthA)
+	(GetConsoleAliasExesLengthW, GetConsoleSelectionInfo)
+	(GetCurrentConsoleFont): Declare functions.
+	[_WIN32_WINNT >= 0x0600] (HISTORY_NO_DUP_FLAG): Define it.
+	(struct _CONSOLE_FONT_INFOEX): New structure; declare it only when...
+	[_WIN32_WINNT >= 0x0600]: ...this prevails; when declared, map to...
+	(CONSOLE_FONT_INFOEX, PCONSOLE_FONT_INFOEX): ...these typedefs.
+	(CONSOLE_HISTORY_INFO, PCONSOLE_HISTORY_INFO): New typedefs; they
+	map to an anonymous structure, and are visible only when...
+	[_WIN32_WINNT >= 0x0600]: ...this prevails.
+	(struct _CONSOLE_READCONSOLE_CONTROL): New structure; declare when...
+	[_WIN32_WINNT >= 0x0600]: ...this prevails; when declared, map to...
+	(CONSOLE_READCONSOLE_CONTROL, PCONSOLE_READCONSOLE_CONTROL): ...these.
+	(struct _CONSOLE_SCREEN_BUFFER_INFOEX): New structure; declare when...
+	[_WIN32_WINNT >= 0x0600]: ...this prevails; when declared, map to...
+	(CONSOLE_SCREEN_BUFFER_INFOEX, PCONSOLE_SCREEN_BUFFER_INFOEX):
+	...these typedefs.
+	[_WIN32_WINNT >= 0x0600] (GetConsoleHistoryInfo)
+	(GetConsoleOriginalTitleA, GetConsoleOriginalTitleW)
+	(GetConsoleScreenBufferInfoEx, GetCurrentConsoleFontEx)
+	(SetConsoleHistoryInfo, SetConsoleScreenBufferInfoEx)
+	(SetCurrentConsoleFontEx): Declare functions.
+
+2018-09-03  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.1.1 release.
+
+	* All files (wsl-5.1.1-release): Tag assigned.
+
+2018-07-29  Keith Marshall  <keith@users.osdn.me>
+
+	Don't restrict <winerror.h> exposure when including <winsock.h>
+
+	* include/winerror.h [__WINSOCK_H_SOURCED__]: Remove filters.
+	(__WINSOCK_V1_ERRORS__, __WINSOCK_V2_ERRORS__): Do not define; delete
+	all dependent filter references.
+
+2018-07-11  Keith Marshall  <keith@users.osdn.me>
+
+	Make <wincrypt.h> header effectively self-contained.
+
+	* include/wincrypt.h: Include <winbase.h>
+
+2018-07-11  Keith Marshall  <keith@users.osdn.me>
+
+	Correct <wincrypt.h> typographic errors; fix issue [#38391]
+
+	* include/wincrypt.h (CALG_TLS1PRF): Delete symbolic reference to...
+	(ALG_CLASS_DHASH): ...this; there is no such symbol; replace it with...
+	(ALG_CLASS_HASH): ...this, which represents the correct reference.
+	(struct _CRYPTOAPI_BLOB): Delete extraneous "typedef" keyword; this
+	struct definition is not directly associated with any type name.
+	(struct _SSL_EXTRA_CERT_CHAIN_POLICY_PARA): Likewise.
+
+2018-02-26  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.1 release.
+
+	* All files (wsl-5.1-release): Tag assigned.
+
+2018-02-24  Keith Marshall  <keith@users.osdn.me>
+
+	Make <iptypes.h> header effectively self-contained.
+
+	* include/iptypes.h: Assert copyright; tidy layout.
+	Include <windef.h>; it is required for self-containment.
+	(__need_time_t): Define for selective inclusion of <sys/types.h>
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them as appropriate.
+	(_WIN32_WINNT): Always compare it symbolically.
+	(__dhcp_time_t): New temporary data type macro; define it...
+	[_WIN64]: ...as equivalent to __time64_t, otherwise...
+	[!_WIN64]: ...equivalent to __time32_t, and then...
+	(struct _IP_ADAPTER_INFO): ...use it as the data type for...
+	(LeaseObtained, LeaseExpires): ...these fields.
+
+2017-12-20  Keith Marshall  <keith@users.osdn.me>
+
+	Make <winreg.h> header effectively self-contained.
+
+	* include/winreg.h: Include <winbase.h>, thus achieving effective
+	self-containment; since this also indirectly includes <_mingw.h>,
+	there is no longer any need to include it directly.
+
+2017-12-20  Keith Marshall  <keith@users.osdn.me>
+
+	Clean up, following issue [#2262] patch application.
+
+	* include/winreg.h: Tidy layout; correct copyright assertion.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them, as appropriate.
+	[UNICODE] (__AW): Do not use deleted macro; replace it with...
+	[UNICODE] (__AW_ALIAS__): ...this, for conditional typedef mapping...
+	[UNICODE] (VALENT, PVALENT): ...of these; similarly replace with...
+	[UNICODE] (__AW_SUFFIXED__): ...this, to define function mappings...
+	[UNICODE] (AbortSystemShutdown, InitiateSystemShutdown)
+	(RegConnectRegistry, RegCreateKey, RegCreateKeyEx, RegDeleteKey)
+	(RegDeleteValue, RegEnumKey, RegEnumKeyEx, RegEnumValue, RegLoadKey)
+	(RegOpenKey, RegOpenKeyEx, RegQueryInfoKey, RegQueryMultipleValues)
+	(RegQueryValue, RegQueryValueEx, RegReplaceKey, RegRestoreKey)
+	(RegSaveKey, RegSetValue, RegSetValueEx, RegUnLoadKey, RegSaveKeyEx)
+	(RegDeleteKeyTransacted, RegDeleteKeyValue, RegDeleteTree, RegGetValue)
+	(RegLoadMUIString, RegOpenKeyTransacted, RegSetKeyValue)
+	(RegDeleteKeyEx, RegCopyTree, RegCreateKeyTransacted): ...for these.
+	(RegDeleteKeyEx, RegDeleteKeyExA, RegDeleteKeyExW): Fix regression;
+	all "4.x" branches specified these incorrectly, dependent on...
+	[_WIN32_WINNT >= _WIN32_WINNT_WIN2K]: ...this condition, whereas the
+	"legacy" branch, whence the "5.x" branches are propagated, correctly
+	required an alternative condition which is the equivalent of...
+	[_WIN32_WINNT >= _WIN32_WINNT_WS03]: ...this; revert it.
+
+2017-12-20  Sebastián Puebla  <spuebla@users.sourceforge.net>
+
+	Update registry management API, per issue [#2262].
+
+	* include/winreg.h: Merge changes from 4.1-dev branch.
+	(REG_LATEST_FORMAT, REG_NO_COMPRESSION, REG_OPTION_BACKUP_RESTORE)
+	(REG_STANDARD_FORMAT, RRF_RT_ANY, RRF_RT_DWORD, RRF_RT_QWORD)
+	(RRF_RT_REG_BINARY, RRF_RT_REG_DWORD, RRF_RT_REG_EXPAND_SZ)
+	(RRF_RT_REG_MULTI_SZ, RRF_RT_REG_NONE, RRF_RT_REG_QWORD, RRF_RT_REG_SZ)
+	(RRF_NOEXPAND, RRF_SUBKEY_WOW6464KEY, RRF_SUBKEY_WOW6432KEY)
+	(RRF_ZEROONFAILURE): New manifest constants; define them.
+	(RegDisablePredefinedCache, RegOpenCurrentUser, RegOpenUserClassesRoot)
+	(RegOverridePredefKey): Add previously omitted function prototypes.
+	[_WIN32_WINNT >= _WIN32_WINNT_WINXP] (RegSaveKeyEx): Define...
+	[!defined UNICODE] (__AW): ...mapping it for SBCS/MBCS case, or...
+	[defined UNICODE] (__AW): ...for UTF-16LE case to either one of...
+	(RegSaveKeyExA, RegSaveKeyExW): ...these, respectively, and...
+	[_WIN32_WINNT >= _WIN32_WINNT_WINXP]: ...declare function prototypes.
+	[_WIN32_WINNT >= _WIN32_WINNT_WS03] (RegDisableReflectionKey)
+	(RegEnableReflectionKey, RegQueryReflectionKey): Declare prototypes.
+	[_WIN32_WINNT >= _WIN32_WINNT_VISTA] (RegCopyTreeA, RegCopyTreeW)
+	(RegCreateKeyTransactedA, RegCreateKeyTransactedW)
+	(RegDeleteKeyTransactedA, RegDeleteKeyTransactedW)
+	(RegDeleteKeyValueA, RegDeleteKeyValueW)
+	(RegDeleteTreeA, RegDeleteTreeW, RegDisablePredefinedCacheEx)
+	(RegGetValueA, RegGetValueW, RegLoadMUIStringA, RegLoadMUIStringW)
+	(RegOpenKeyTransactedA, RegOpenKeyTransactedW)
+	(RegSetKeyValueA, RegSetKeyValueW): Declare prototypes.
+	[_WIN32_WINNT >= _WIN32_WINNT_VISTA] (RegCopyTree)
+	(RegCreateKeyTransacted, RegDeleteKeyTransacted, RegDeleteKeyValue)
+	(RegDeleteTree, RegGetValue, RegLoadMUIString, RegOpenKeyTransacted)
+	(RegSetKeyValue): Define, mapping each to its respective function...
+	[!defined UNICODE] (__AW): ...for the SBCS/MBCS case, or...
+	[defined UNICODE] (__AW): ...for the UTF-16LE case.
+
+	* lib/kernel32.def (RegDeleteTreeA@8, RegDeleteTreeW@8)
+	(RegDisablePredefinedCacheEx@0, RegGetValueA@28, RegGetValueW@28)
+	(RegLoadMUIStringA@28, RegLoadMUIStringW@28, RegSaveKeyExA@16)
+	(RegSaveKeyExW@16): Remove them; relocate them to...
+	* lib/advapi32.def (RegDeleteTreeA@8, RegDeleteTreeW@8)
+	(RegDisablePredefinedCacheEx@0, RegGetValueA@28, RegGetValueW@28)
+	(RegLoadMUIStringA@28, RegLoadMUIStringW@28, RegSaveKeyExA@16)
+	(RegSaveKeyExW@16): ...their correct location, here.
+	(RegCopyTreeA@12, RegCopyTreeW@12, RegQueryReflectionKey@8)
+	(RegCreateKeyTransactedA@44, RegCreateKeyTransactedW@44)
+	(RegDeleteKeyTransactedA@24, RegDeleteKeyTransactedW@24)
+	(RegDeleteKeyValueA@12, RegDeleteKeyValueW@12)
+	(RegDisableReflectionKey@4, RegEnableReflectionKey@4)
+	(RegOpenKeyTransactedA@28, RegOpenKeyTransactedW@28)
+	(RegSetKeyValueA@24, RegSetKeyValueW@24): Add these.
+
+2017-12-16  Keith Marshall  <keith@users.osdn.me>
+
+	Provide default definition for _WIN32_IE feature test macro.
+
+	* include/sdkddkver.h [!defined _WIN32_IE]: Define it, with...
+	(_WIN32_IE_IE50): ...this default value.
+
+	* include/commctrl.h (_WIN32_IE): Delete definition hint; it offered
+	a conflicting proposal for the default value.
+
+2017-12-06  Keith Marshall  <keith@users.osdn.me>
+
+	Prepare and publish MinGW.org WSL-5.0.2 release.
+
+	* All files (wsl-5.0.2-release): Tag assigned.
+
+2017-11-28  Keith Marshall  <keith@users.osdn.me>
+
+	Make <wsnetbs.h> header effectively self-contained.
+
+	* include/wsnetbs.h: Assert copyright; tidy layout; include
+	"_winsock.h", so making this header effectively self-contained, and
+	thus relieving the user of a responsibility for ensuring that some
+	other appropriate WinSock header has been included first.
+
+2017-11-28  Keith Marshall  <keith@users.osdn.me>
+
+	Factor <winsock.h> duplicate content out of <winsock2.h>
+
+	* include/winsock2.h: Remove all declarations and definitions which
+	are identically specified in <winsock.h>, but keep them in scope by...
+	[! defined _WINSOCK_H]: ...including <winsock.h> itself; override any
+	declarations and definitions therefrom, which introduce conflicts.
+	[defined _WINSOCK_H]: Diagnose misuse; suppress all further
+	definitions and declarations.
+
+	* include/winsock.h (SOMAXCONN): Add comment; note disparity between
+	WinSock v1.1 and WinSock v2, the latter of which will override when
+	correctly included by <winsock2.h>
+
+2017-11-24  Keith Marshall  <keith@users.osdn.me>
+
+	Make <winsock.h> and <winsock2.h> duplicate code congruent.
+
+	* include/winsock.h (SOMAXCONN): Move definition into...
+	[!__INSIDE_MSYS__]: ...this guarded scope.
+
+	* include/winsock2.h: Rearrange as necessary.
+	[_BEGIN_C_DECLS, _END_C_DECLS]: Keep them balanced.
+	(_USE_SYS_TYPES_FD_SET): Define and use, as in <winsock.h>
+	[!_WINSOCK_ANOMALOUS_TYPEDEFS] (FD_SET): Declare function, not type.
+	[!_WINSOCK_ANOMALOUS_TYPEDEFS] (PFD_SET, LPFD_SET): Suppress typedefs.
+	(FD_SET, FD_ISSET, FD_CLR, FD_ZERO): Reimplement, as in <winsock.h>
+	(FD_READ_BIT, FD_WRITE_BIT, FD_OOB_BIT, FD_ACCEPT_BIT)
+	(FD_CONNECT_BIT, FD_CLOSE_BIT, FD_QOS_BIT, FD_GROUP_QOS_BIT)
+	(FD_ROUTING_INTERFACE_CHANGE_BIT, FD_ADDRESS_LIST_CHANGE_BIT)
+	(FD_MAX_EVENTS): Enumerate them, as in <winsock.h>
+	[!(defined __INSIDE_CYGWIN__ || defined __INSIDE_MSYS__)]: Recast...
+	[!defined __INSIDE_MSYS__]: ...as this, throughout.
+	(gethostname): Update function prototype, adding...
+	(WINSOCK_API_LINKAGE): ...this DLL import control attribute.
+
+	* include/ws2spi.h: Tidy layout; assert copyright.
+	[_BEGIN_C_DECLS, _END_C_DECLS]: Use them, as appropriate.
+	(LPFD_SET): Delete all type references; use...
+	(fd_set *): ...this instead.
+
+2017-11-14  Keith Marshall  <keith@users.osdn.me>
+
+	Establish default selection for WinSock API declaration.
+
+	* include/windows.h include/nspapi.h: Include...
+	* include/_winsock.h: ...this new system private header; it selects...
+	[_WIN32_WINNT >= _WIN32_WINNT_NT4]: ...WinSock v2 API declarations, as
+	provided by conditional inclusion of <winsock2.h>, otherwise...
+	[_WIN32_WINNT < _WIN32_WINNT_NT4]: ...WinSock v1.1 API declarations,
+	as provided by inclusion of <winsock.h>
+
+	* tests/headers.at <_winsock.h>: Add reference.
+
+2017-11-14  Keith Marshall  <keith@users.osdn.me>
+
+	Update gethostname() declaration; drop Cygwin specificity.
+
+	* include/winsock.h (gethostname): Declare unconditionally; add...
+	(WINSOCK_API_LINKAGE): ...this DLL import control attribute.
+	[!(defined __INSIDE_CYGWIN__ || defined __INSIDE_MSYS__)]: Recast...
+	[!defined __INSIDE_MSYS__]: ...as this, throughout.
+
 2017-11-09  Keith Marshall  <keith@users.osdn.me>
 
 	Avoid an implication that the API is exclusively 32-bit.
 
 	* Makefile.in (w32api_srcdir): Rename macro...
 	(wslapi_srcdir): ...to this; update all references.
+
+2017-11-09  Keith Marshall  <keith@users.osdn.me>
+
+	Normalize fd_set event macros for <winsock2.h> compatibility.
+
+	* include/winsock.h (FD_READ, FD_WRITE, FD_OOB, FD_ACCEPT, FD_CONNECT)
+	(FD_CLOSE): Redefine them, deriving respective values as shifts by...
+	(FD_READ_BIT, FD_WRITE_BIT, FD_OOB_BIT, FD_ACCEPT_BIT, FD_CONNECT_BIT)
+	(FD_CLOSE_BIT): ...this new enumerated count sequence, applying each
+	count to a bit flag with value of 1, in each case respectively.
+	[_WINSOCK2_H]: Extend shift count enumeration, to include...
+	(FD_QOS_BIT, FD_GROUP_QOS_BIT, FD_ROUTING_INTERFACE_CHANGE_BIT)
+	(FD_ADDRESS_LIST_CHANGE_BIT): ...these additional counts; hence...
+	[_WINSOCK2_H] (FD_QOS, FD_GROUP_QOS, FD_ROUTING_INTERFACE_CHANGE)
+	[_WINSOCK2_H] (FD_ADDRESS_LIST_CHANGE): ...define each of these.
+	(FD_MAX_EVENTS): Define unconditionally; it represents a shift count
+	of 1 greater than the offset of the last defined flag; hence...
+	(FD_ALL_EVENTS): ...derive this mask for all event flags.
+
+2017-11-09  Keith Marshall  <keith@users.osdn.me>
+
+	Filter potential WinSock v2 conflicts out of <winsock.h>
+
+	* include/winsock.h [_WINSOCK2_H] <mswsock.h>: Do not include it.
+	[_WINSOCK2_H] (IP_MULTICAST_IF, IP_MULTICAST_TTL, IP_MULTICAST_LOOP)
+	(IP_ADD_MEMBERSHIP, IP_DROP_MEMBERSHIP, IP_DEFAULT_MULTICAST_TTL)
+	(IP_DEFAULT_MULTICAST_LOOP, IP_MAX_MEMBERSHIPS, struct ip_mreq): Do
+	not define any of these; they are not compatible with WinSock v2.
+	[_WINSOCK2_H] (SOMAXCONN): Do not define it; it will be defined
+	appropiately in <winsock2.h>
+
+2017-11-09  Keith Marshall  <keith@users.osdn.me>
+
+	Filter out <winsock.h> typedef anomalies.
+
+	* include/winsock.h (FD_SET, PFD_SET, LPFD_SET): If user defines...
+	[_WINSOCK_ANOMALOUS_TYPEDEFS]: ...this new feature test macro, expose
+	them as type definitions, but warn of potential conflict with...
+	[!_WINSOCK_ANOMALOUS_TYPEDEFS] (FD_SET): ...this POSIX.1 mandated
+	function; declare its prototype.
 
 2017-11-08  Keith Marshall  <keith@users.osdn.me>
 

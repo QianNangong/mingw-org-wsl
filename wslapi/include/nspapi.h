@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Anders Norlander <anorland@hem2.passagen.se>
- * Copyright (C) 1998, 1999, 2002, 2004, 2017, MinGW.org Project
+ * Copyright (C) 1998, 1999, 2002, 2004, 2017, 2019, MinGW.org Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -42,21 +42,15 @@
  * the full content, we must process the WinSock API declarations from
  * <winsock.h> or <winsock2.h>, BEFORE we define the <nspapi.h> repeat
  * inclusion guard, so that <winsock2.h> may, if necessary, recurse to
- * access the selectively exposed content.
+ * access the selectively exposed content.  Inclusion of "winsock.h",
+ * subject to the __USE_MINGW_WINSOCK_DEFAULT feature test, declares
+ * the necessary WinSock API, choosing between the WinSock v1.1 API,
+ * and the WinSock v2 API, on the same basis as the similar choice
+ * made in <windows.h>
  */
-#ifndef _WINSOCK_H
-/* We must include <winsock.h> or <winsock2.h>; (we favour <winsock2.h>
- * over <winsock.h>, on the same basis as our <windows.h> does).
- */
-#include <sdkddkver.h>
-#if _WIN32_WINNT >= _WIN32_WINNT_WIN2K
-#include <winsock2.h>
+#define __USE_MINGW_WINSOCK_DEFAULT
+#include "winsock.h"
 
-#else	/* _WIN32_WINNT < Win2K */
-#include <winsock.h>
-#endif
-
-#endif	/* !_WINSOCK_H */
 /* We can now be confident that the WinSock API has been appropriately
  * declared; we may now define the <nspapi.h> repeat inclusion guard.
  */
