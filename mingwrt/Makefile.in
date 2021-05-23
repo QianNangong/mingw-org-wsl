@@ -270,6 +270,12 @@ $(addsuffix .def,$(all_msvcrt)): %.def: msvcrt.def.in
 #
 msvcrt_repl_prefix := __msvcrt
 msvcrt_repl_funcs := printf fprintf sprintf vprintf vfprintf vsprintf
+
+# Likewise, for the MinGW wrappers which allow free() and realloc()
+# to operate on both regularly-aligned, and on over-aligned, blocks
+# of heap memory; (Microsoft require distinct functions for their
+# implementations of regularly-aligned and over-aligned allocation).
+#
 msvcrt_repl_funcs += free realloc
 
 # This is kludgey, but dlltool lacks the selectivity to do the job

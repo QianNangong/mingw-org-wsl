@@ -1,3 +1,24 @@
+2021-05-23  Keith Marshall  <keith@users.osdn.me>
+
+	Implement a generic legacy platform support infrastructure.
+
+	* lib/availapi.c: New file; it implements...
+	(__kernel32_entry_point, __bound_dll_entry_point)
+	(__unbound_dll_entry_point): ...these run-time link helper functions.
+
+	* include/legacy.h: New file.
+	(__kernel32_entry_point, __bound_dll_entry_point)
+	(__unbound_dll_entry_point): Declare them.
+	(__legacy_support): New inline error notifier; implement it.
+	(API_UNCHECKED, API_UNSUPPORTED): Define them.
+	(ERROR_OLD_WIN_VERSION): Duplicate.
+
+	* Makefile.in (libkernel32.a): Integrate...
+	(k32entry.$OBJEXT, bound.$OBJECT): ...these; they provide...
+	(__kernel32_entry_point, __bound_dll_entry_point): ...these; add
+	build rules, as appropriate, incorporating...
+	(NO_ALIGN_FLAGS): ...this new macro.
+
 2021-05-09  Keith Marshall  <keith@users.osdn.me>
 
 	Correct TreeView_GetItemRect() syntax; cf. MinGW-Issue #41041.

@@ -1,3 +1,10 @@
+2021-05-23  Keith Marshall  <keith@users.osdn.me>
+
+	Add a makefile clarification comment.
+
+	* Makefile.in (msvcrt_repl_funcs): Explain inclusion...
+	(free, realloc): ...these.
+
 2021-04-11  Keith Marshall  <keith@users.osdn.me>
 
 	Prepare and publish MinGW.org WSL-5.4.2 release.

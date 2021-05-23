@@ -7,7 +7,7 @@ PACKAGE_TARNAME := @PACKAGE_TARNAME@
 PACKAGE_VERSION := @PACKAGE_VERSION@
 
 # Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2014-2017, MinGW.org Project
+# Copyright (C) 2014-2017, 2021, MinGW.org Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
@@ -125,6 +125,16 @@ lib%.a: %.def
 	$(if $(filter-out $<,$^),$(AR) $(ARFLAGS) $@ $(filter-out $<,$^))
 
 vpath %.c ${srcdir}/lib
+libkernel32.a: k32entry.$(OBJEXT) bound.$(OBJEXT)
+
+NO_ALIGN_FLAGS := -fno-align-jumps -fno-align-functions
+bound.$(OBJEXT) unbound.$(OBJEXT): %.$(OBJEXT): availapi.c
+	$(CC) -c $(ALL_CFLAGS) $(NO_ALIGN_FLAGS) -D_$* $< -o $@
+
+bound_dll_api_list := k32entry
+$(addsuffix .$(OBJEXT),$(bound_dll_api_list)): %.$(OBJEXT): availapi.c
+	$(CC) -c $(ALL_CFLAGS) $(NO_ALIGN_FLAGS) -D_bound -D_lib=$* $< -o $@
+
 libuuid.a: ativscp-uuid.$(OBJEXT) cguid-uuid.$(OBJEXT)
 libuuid.a: comcat-uuid.$(OBJEXT) devguid.$(OBJEXT) docobj-uuid.$(OBJEXT)
 libuuid.a: exdisp-uuid.$(OBJEXT) extras-uuid.$(OBJEXT) hlguids-uuid.$(OBJEXT)
