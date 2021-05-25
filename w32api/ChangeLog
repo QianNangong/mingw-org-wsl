@@ -1,5 +1,21 @@
 2021-05-25  Keith Marshall  <keith@users.osdn.me>
 
+	Add "legacy-safe" emulation of Microsoft's version helpers API.
+
+	* include/versionhelpers.h: New file; it defines the API, as specified
+	in Microsoft's official "Version Helper" on-line documentation.
+
+	* lib/osvercmp.c: New file; it implements...
+	(__mingw_osver_at_least, __mingw_osver_server): ...these "legacy-safe"
+	helper functions; deployed as regular object modules, included in...
+	(libkernel32.a): ...this W32API import library, they wrap calls to...
+	(VerSetConditionMask, VerifyVersionInfoA): ...these KERNEL32.DLL
+	functions, forwarding calls only if supported.
+
+	* Makefile.in (kernel32.a): Add osvercmp.$OBJEXT dependency.
+
+2021-05-25  Keith Marshall  <keith@users.osdn.me>
+
 	Correct an entry-point look-up logic defect.
 
 	* lib/availapi.c (__bound_dll_entry_point) [dll == NULL]: Should be...

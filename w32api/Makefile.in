@@ -125,7 +125,7 @@ lib%.a: %.def
 	$(if $(filter-out $<,$^),$(AR) $(ARFLAGS) $@ $(filter-out $<,$^))
 
 vpath %.c ${srcdir}/lib
-libkernel32.a: k32entry.$(OBJEXT) bound.$(OBJEXT)
+libkernel32.a: $(addsuffix .$(OBJEXT),k32entry bound osvercmp)
 
 NO_ALIGN_FLAGS := -fno-align-jumps -fno-align-functions
 bound.$(OBJEXT) unbound.$(OBJEXT): %.$(OBJEXT): availapi.c
