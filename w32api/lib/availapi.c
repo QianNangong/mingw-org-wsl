@@ -118,7 +118,7 @@ void *__bound_dll_entry_point
      * the entry-point, or mark it as permanently unsupported.
      */
     HMODULE dll = GetModuleHandleA( dllname );
-    hook = (dll == NULL) ? GetProcAddress( dll, procname ) : API_UNSUPPORTED;
+    hook = (dll != NULL) ? GetProcAddress( dll, procname ) : API_UNSUPPORTED;
   }
   /* In any case, we return the (possibly updated) hook, which should
    * then be recorded by the caller.

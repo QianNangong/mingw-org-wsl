@@ -1,3 +1,10 @@
+2021-05-25  Keith Marshall  <keith@users.osdn.me>
+
+	Correct an entry-point look-up logic defect.
+
+	* lib/availapi.c (__bound_dll_entry_point) [dll == NULL]: Should be...
+	[dll != NULL]: ...this; correct it.
+
 2021-05-23  Keith Marshall  <keith@users.osdn.me>
 
 	Implement a generic legacy platform support infrastructure.
