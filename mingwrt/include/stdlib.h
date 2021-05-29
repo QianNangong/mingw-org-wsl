@@ -905,9 +905,9 @@ __cdecl __MINGW_NOTHROW  wchar_t *ulltow (unsigned long long __n, wchar_t * __w,
  * the basis of appropriate POSIX or BSD specific feature tests...
  *
  * mkstemp(3) function support; added per feature request #2003.
- * POSIX wants _XOPEN_SOURCE >= 500, (implying _POSIX_C_SOURCE >= 200112L).
+ * POSIX wants _XOPEN_SOURCE >= 500, (implying _POSIX_C_SOURCE >= 199506L).
  */
-#if _POSIX_C_SOURCE >= 200112L
+#if _POSIX_C_SOURCE >= 199506L
 
 __cdecl __MINGW_NOTHROW  int mkstemp (char *);
 __cdecl __MINGW_NOTHROW  int __mingw_mkstemp (int, char *);
@@ -955,7 +955,7 @@ __CRT_ALIAS __LIBIMPL__(( FUNCTION = mkstemp ))
 __cdecl __MINGW_NOTHROW  int mkstemp (char *__filename_template)
 { return __mingw_mkstemp( _MKSTEMP_INVOKE, __filename_template ); }
 
-#endif	/* _POSIX_C_SOURCE >= 200112L (for mkstemp()) */
+#endif	/* _POSIX_C_SOURCE >= 199506L (for mkstemp()) */
 
 /* mkdtemp(3) function support: added as adjunct to feature request #2003.
  * POSIX wants _XOPEN_SOURCE >= 700, (implying _POSIX_C_SOURCE >= 200809L).

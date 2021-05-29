@@ -1,3 +1,12 @@
+2021-05-29  Keith Marshall  <keith@users.osdn.me>
+
+	Correct erroneous mkstemp() availability condition.
+
+	* include/stdlib.h (mkstemp): POSIX requires...
+	[_XOPEN_SOURCE >= 500]: ...this, which is equivalent to...
+	[_POSIX_C_SOURCE >= 199506L]: ...this, and not (as we had it)...
+	[_POSIX_C_SOURCE >= 200112L]: ...this; correct it.
+
 2021-05-23  Keith Marshall  <keith@users.osdn.me>
 
 	Add a makefile clarification comment.
