@@ -91,6 +91,7 @@ CloseConsoleHandle@4
 CloseHandle@4
 ClosePrivateNamespace@8
 CloseProfileUserMapping@0
+ClosePseudoConsole@4
 CloseThreadpool@4
 CloseThreadpoolCleanupGroup@4
 CloseThreadpoolCleanupGroupMembers@12
@@ -173,6 +174,7 @@ CreateProcessA@40
 CreateProcessInternalA@48
 CreateProcessInternalW@48
 CreateProcessW@40
+CreatePseudoConsole@20
 CreateRemoteThread@28
 CreateRemoteThreadEx@32
 CreateSemaphoreA@16
@@ -993,6 +995,7 @@ RequestDeviceWakeup@4
 RequestWakeupLatency@4
 ResetEvent@4
 ResetWriteWatch@8
+ResizePseudoConsole@8
 ResolveLocaleName@12
 RestoreLastError@4
 ResumeThread@4

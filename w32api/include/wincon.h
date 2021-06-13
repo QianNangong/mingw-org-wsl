@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Anders Norlander  <anorland@hem2.passagen.se>
- * Copyright (C) 1998, 1999, 2002-2006, 2009, 2011, 2016, 2018,
+ * Copyright (C) 1998, 1999, 2002-2006, 2009, 2011, 2016, 2018, 2021,
  *   MinGW.org Project.
  *
  *
@@ -415,6 +415,17 @@ WINAPI BOOL SetConsoleHistoryInfo (PCONSOLE_HISTORY_INFO);
 WINAPI BOOL SetConsoleScreenBufferInfoEx (HANDLE, PCONSOLE_SCREEN_BUFFER_INFOEX);
 WINAPI BOOL SetCurrentConsoleFontEx (HANDLE, BOOL, PCONSOLE_FONT_INFOEX);
 
+#if NTDDI_VERSION >= NTDDI_WIN10_RS5
+/* Windows-10 Version 1809 (Redstone 5) introduced the pseudo-console API.
+ */
+typedef HANDLE HPCON;
+WINAPI HRESULT CreatePseudoConsole (COORD, HANDLE, HANDLE, DWORD, HPCON *);
+WINAPI HRESULT ResizePseudoConsole (HPCON, COORD);
+WINAPI void ClosePseudoConsole (HPCON);
+
+#define PSEUDOCONSOLE_INHERIT_CURSOR  (DWORD)(1)
+
+#endif	/* Win10 Redstone 5 and later */
 #endif	/* Vista and later */
 #endif	/* WinXP and later */
 #endif	/* Win2K and later */
