@@ -1,5 +1,14 @@
 2021-06-13  Keith Marshall  <keith@users.osdn.me>
 
+	Implement pseudo-console legacy platform support.
+
+	* include/wincon.h [NTDDI_VERSION >= NTDDI_WIN10_RS5]
+	[_MINGW_LEGACY_SUPPORT] (CreatePseudoConsole, ResizePseudoConsole)
+	[_MINGW_LEGACY_SUPPORT] (ClosePseudoConsole): Add inline stub function
+	implementations, to enforce run-time linking.
+
+2021-06-13  Keith Marshall  <keith@users.osdn.me>
+
 	Update to add Win10 pseudo-console support.
 
 	* include/winbase.h [_WIN32_WINNT >= _WIN32_WINNT_VISTA]

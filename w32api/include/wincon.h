@@ -425,6 +425,45 @@ WINAPI void ClosePseudoConsole (HPCON);
 
 #define PSEUDOCONSOLE_INHERIT_CURSOR  (DWORD)(1)
 
+#ifdef _MINGW_LEGACY_SUPPORT
+/* For MinGW legacy platform support, provide inline redirector stubs,
+ * to facilate graceful fallback action, in the event that any program,
+ * which has been linked with the pseudo-console API, is run on an older
+ * version of Windows.
+ */
+#include "legacy.h"
+
+__CRT_ALIAS WINAPI HRESULT CreatePseudoConsole
+( COORD size, HANDLE input, HANDLE output, DWORD flags, HPCON *con )
+{
+  typedef WINAPI HRESULT (*api)( COORD, HANDLE, HANDLE, DWORD, HPCON * );
+
+  static void *call = API_UNCHECKED;
+  return ((call = __kernel32_entry_point( call, __FUNCTION__ )) != NULL)
+    ? ((api)(call))( size, input, output, flags, con )
+    : __legacy_support( ERROR_OLD_WIN_VERSION );
+}
+
+__CRT_ALIAS WINAPI HRESULT ResizePseudoConsole (HPCON con, COORD size)
+{
+  typedef WINAPI HRESULT (*api)( HPCON, COORD );
+
+  static void *call = API_UNCHECKED;
+  return ((call = __kernel32_entry_point( call, __FUNCTION__ )) != NULL)
+    ? ((api)(call))( con, size ) : __legacy_support( ERROR_OLD_WIN_VERSION );
+}
+
+__CRT_ALIAS WINAPI void ClosePseudoConsole (HPCON con)
+{
+  typedef WINAPI void (*api)( HPCON );
+
+  static void *call = API_UNCHECKED;
+  if( (call = __kernel32_entry_point( call, __FUNCTION__ )) == NULL )
+    (void)__legacy_support( ERROR_OLD_WIN_VERSION );
+  else ((api)(call))( con );
+}
+#endif	/* _MINGW_LEGACY_SUPPORT */
+
 #endif	/* Win10 Redstone 5 and later */
 #endif	/* Vista and later */
 #endif	/* WinXP and later */
