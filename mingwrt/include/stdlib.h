@@ -7,7 +7,8 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2009, 2011, 2014-2016, 2018, 2020, MinGW.org Project.
+ * Copyright (C) 1997-2009, 2011, 2014-2016, 2018, 2020, 2021,
+ *   MinGW.org Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -540,6 +541,33 @@ _CRTIMP __cdecl __MINGW_NOTHROW  int rand_s (unsigned int *);
 
 #endif	/* Win-Vista || MSVCR80.DLL || later */
 #endif	/* _CRT_RAND_S enabled */
+
+#if _XOPEN_SOURCE >= 500 || defined _BSD_SOURCE
+/* The POSIX.1-1990 Extended Systems Interface specification defines another
+ * alternative to rand().  While the statistical quality of this alternative
+ * cannot be assured, this implementation in libmingwex.a may be useful.
+ */
+__cdecl __MINGW_NOTHROW  long __mingw_random (void);
+__cdecl __MINGW_NOTHROW  void __mingw_srandom (unsigned int);
+__cdecl __MINGW_NOTHROW  char *__mingw_initstate (unsigned int, char *, size_t);
+__cdecl __MINGW_NOTHROW  char *__mingw_setstate (char *);
+
+__CRT_ALIAS __JMPSTUB__(( FUNCTION = random ))
+__cdecl __MINGW_NOTHROW  long random (void){ return __mingw_random(); }
+
+__CRT_ALIAS __JMPSTUB__(( FUNCTION = srandom ))
+__cdecl __MINGW_NOTHROW  void srandom (unsigned int __seed)
+{ __mingw_srandom (__seed); }
+
+__CRT_ALIAS __JMPSTUB__(( FUNCTION = initstate ))
+__cdecl __MINGW_NOTHROW  char *initstate (unsigned int __seed, char *__buf, size_t __len)
+{ return __mingw_initstate (__seed, __buf, __len); }
+
+__CRT_ALIAS __JMPSTUB__(( FUNCTION = setstate ))
+__cdecl __MINGW_NOTHROW  char *setstate (char *__buf)
+{ return __mingw_setstate (__buf); }
+
+#endif	/* _XOPEN_SOURCE >= 500 || _BSD_SOURCE */
 
 _CRTIMP __cdecl __MINGW_NOTHROW  void abort (void) __MINGW_ATTRIB_NORETURN;
 _CRTIMP __cdecl __MINGW_NOTHROW  void exit (int) __MINGW_ATTRIB_NORETURN;

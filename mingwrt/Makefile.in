@@ -6,8 +6,8 @@
 PACKAGE_TARNAME := @PACKAGE_TARNAME@
 PACKAGE_VERSION := @PACKAGE_VERSION@
 
-# Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2014-2020, MinGW.org Project
+# Written by Keith Marshall <keith@users.osdn.me>
+# Copyright (C) 2014-2021, MinGW.org Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
@@ -427,6 +427,11 @@ libmingwex.a: $(addsuffix .$(OBJEXT), cosf cosl acosf acosl sinf sinl asinf \
   remquol rint rintf rintl round roundf roundl scalbn scalbnf scalbnl signbit \
   signbitf signbitl sqrtf sqrtl tgamma tgammaf tgammal trunc truncf truncl \
   x87cvt x87cvtf x87log x87log1p x87pow x87remquo)
+
+# An experimental implementation of the POSIX.1-1990 random() API;
+# once again, this is delivered in libmingwex.a
+#
+libmingwex.a: random.$(OBJEXT)
 
 # Replacement I/O functions in libmingwex.a, providing better POSIX
 # compatibility than their Microsoft equivalents.

@@ -1,3 +1,16 @@
+2021-06-13  Keith Marshall  <keith@users.osdn.me>
+
+	Implement a POSIX.1 compliant pseudo-random number generator.
+
+	* mingwex/math/random.c: New file; it implements...
+	(__mingw_random, __mingw_srandom, __mingw_initstate)
+	(__mingw_setstate): ...each of these API functions.
+	* include/stdlib.h [_XOPEN_SOURCE >= 500]: Declare them; map...
+	(random, srandom, initstate, setstate): ...these aliases.
+	[_BSD_SOURCE]: Likewise.
+
+	* Makefile.in (libmingwex.a): Require random.$OBJEXT
+
 2021-05-29  Keith Marshall  <keith@users.osdn.me>
 
 	Correct erroneous mkstemp() availability condition.
