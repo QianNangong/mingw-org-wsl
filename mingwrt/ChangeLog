@@ -1,3 +1,13 @@
+2021-06-25  Keith Marshall  <keith@users.osdn.me>
+
+	Correct Microsoft's dup2() POSIX.1 non-conformity.
+
+	* include/unistd.h [! defined dup2]: Define macro reference to...
+	(__mingw_posix_dup2): ...this new in-line function, (as named by the
+	macro); it overrides the Microsoft dup2() function, to ensure that it
+	returns the correct file descriptor, as specified by POSIX.1, rather
+	than zero, as returned by the Microsoft implementation, on success.
+
 2021-06-13  Keith Marshall  <keith@users.osdn.me>
 
 	Implement a POSIX.1 compliant pseudo-random number generator.

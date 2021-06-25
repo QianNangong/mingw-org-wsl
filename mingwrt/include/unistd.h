@@ -10,9 +10,9 @@
  *   Danny Smith <dannysmith@users.sourceforge.net>
  *   Ramiro Polla <ramiro@lisha.ufsc.br>
  *   Gregory McGarry  <gregorymcgarry@users.sourceforge.net>
- *   Keith Marshall  <keithmarshall@users.sourceforge.net>
+ *   Keith Marshall  <keith@users.osdn.me>
  * Copyright (C) 1997, 1999, 2002-2004, 2007-2009, 2014-2017, 2020,
- *   MinGW.org Project.
+ *   2021, MinGW.org Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -126,6 +126,23 @@ unsigned sleep( unsigned period ){ return __mingw_sleep( period, 0 ); }
  * the ftruncate() function.
  */
 int __cdecl ftruncate( int, off_t );
+
+#ifndef dup2
+/* Microsoft's implementation of dup2(), (which is documented as being a
+ * POSIX.1 function), does NOT actually conform to POSIX.1 behaviour; (on
+ * success, it returns zero, but POSIX.1 specifies that it should return
+ * the file descriptor to which assignment has been forced).  To be fair
+ * to Microsoft, the anomalous behaviour is as they document it; however,
+ * it may seem reasonable for the user to expect conformity with POSIX.1,
+ * particularly when <unistd.h> has been included.  Unless the user has
+ * provided a prior definition for dup2(), this in-line implementation
+ * will deliver such conformity.
+ */
+#define dup2 __mingw_posix_dup2
+__CRT_ALIAS __LIBIMPL__(( FUNCTION = dup2 ))
+__cdecl __MINGW_NOTHROW  int dup2 (int __fd1, int __fd2)
+{ return ((__fd1 = _dup2( __fd1, __fd2 )) == 0) ? __fd2 : __fd1; }
+#endif	/* ! defined dup2 */
 
 #ifndef __NO_INLINE__
 __CRT_INLINE __JMPSTUB__(( FUNCTION = ftruncate, DLLENTRY = _chsize ))
