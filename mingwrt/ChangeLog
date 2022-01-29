@@ -1,3 +1,11 @@
+2022-01-29  Keith Marshall  <keith@users.osdn.me>
+
+	Stop creating redundant "include/parts" directory.
+
+	* Makefile.in (mingwrt_include_subdirs): Remove reference to...
+	(parts): ...this; the directory is no longer used by mingwrt, so it
+	need not be created when performing "make install".
+
 2021-06-25  Keith Marshall  <keith@users.osdn.me>
 
 	Correct Microsoft's dup2() POSIX.1 non-conformity.
