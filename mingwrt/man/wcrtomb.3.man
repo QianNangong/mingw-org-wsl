@@ -171,7 +171,7 @@ greater than two bytes,
 (such as
 .BR \%UTF\(hy8 ).
 From \%mingwrt\(hy5.3 onward,
-the MinGW.org implementation of
+the MinGW.OSDN implementation of
 .BR \%wcrtomb ()
 mitigates this limitation by assignment of the codeset
 from the
@@ -420,7 +420,7 @@ This manpage was written by \%Keith\ Marshall,
 \%<keith@users.osdn.me>,
 to document the
 .BR \%wcrtomb ()
-function as it has been implemented for the MinGW.org Project.
+function as it has been implemented for the MinGW.OSDN Project.
 It may be copied, modified and redistributed,
 without restriction of copyright,
 provided this acknowledgement of contribution by

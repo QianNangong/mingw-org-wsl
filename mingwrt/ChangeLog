@@ -1,5 +1,15 @@
 2022-08-15  Keith Marshall  <keith@users.osdn.me>
 
+	Correct project name references in mingwrt manpages.
+
+	* man/btowc.3.man man/dirname.3.man man/getline.3.man man/mbrlen.3.man
+	* man/mbrtowc.3.man man/mbsinit.3.man man/mbsrtowcs.3.man
+	* man/wcrtomb.3.man man/wcsrtombs.3.man man/wctob.3.man: Replace all
+	references to defunct "MinGW.org" project name; refer to "MinGW.OSDN"
+	instead.
+
+2022-08-15  Keith Marshall  <keith@users.osdn.me>
+
 	Correct project name references in mingwrt source files.
 
 	* README CRT_fenv.c Makefile.in configure.ac cpu_features.sx crt1.c

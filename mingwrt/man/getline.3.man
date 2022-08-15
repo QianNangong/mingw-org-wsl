@@ -384,7 +384,7 @@ to document the
 .BR \%getline ()
 and
 .BR \%getdelim ()
-functions as they have been implemented for the MinGW.org Project.
+functions as they have been implemented for the MinGW.OSDN Project.
 It may be copied, modified and redistributed,
 without restriction of copyright,
 provided this acknowledgement of contribution by
