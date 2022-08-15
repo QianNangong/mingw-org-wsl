@@ -1,15 +1,15 @@
 ## aclocal.m4 -*- Autoconf -*- vim: filetype=config
 ##
-## Autoconf macros for MinGW.org Runtime Library Package
+## Autoconf macros for MinGW.OSDN Runtime Library Package
 ##
 ## $Id$
 ##
 ## Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-## Copyright (C) 2014, 2016-2018, MinGW.org Project
+## Copyright (C) 2014, 2016-2018, 2022, MinGW.OSDN Project
 ##
 ##
 m4_include([VERSION.m4])
-m4_define([__BUG_REPORT_URL__],[http://mingw.org/Reporting_Bugs])
+m4_define([__BUG_REPORT_URL__],[https://MinGW.OSDN.io/reporting_bugs])
 ##
 ##
 ## Permission is hereby granted, free of charge, to any person obtaining a

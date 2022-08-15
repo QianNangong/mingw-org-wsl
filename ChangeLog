@@ -1,3 +1,11 @@
+2022-10-31  Keith Marshall  <keith@users.osdn.me>
+
+	Correct project name references in project-common files.
+
+	* LICENSE README aclocal.m4 configure.ac Makefile.comm Makefile.in:
+	Replace all references to defunct "MinGW.org" project name; refer to
+	"MinGW.OSDN" instead.
+
 2021-04-12  Keith Marshall  <keith@users.osdn.me>
 
 	Increment version number following WSL-5.4.2 release.

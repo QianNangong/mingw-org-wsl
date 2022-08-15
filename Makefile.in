@@ -1,13 +1,13 @@
 # @configure_input@
 # $Id$
 #
-# Makefile template for MinGW.org composite System Libraries Packages
+# Makefile template for MinGW.OSDN composite System Libraries Packages
 
 PACKAGE_TARNAME := @PACKAGE_TARNAME@
 PACKAGE_VERSION := @PACKAGE_VERSION@
 
-# Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2016, 2019, MinGW.org Project
+# Written by Keith Marshall <keith@users.osdn.me>
+# Copyright (C) 2016, 2019, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

@@ -3,7 +3,7 @@ MinGW.org-WSL (Windows System Libraries)
 
 This package provides both the C Runtime (mingwrt) and the Windows API
 (winapi, a.k.a. w32api) system library components, which are required to
-support the MinGW.org distribution of the GNU Compiler Collection.
+support the MinGW.OSDN distribution of the GNU Compiler Collection.
 
 
 Important Notice
@@ -26,13 +26,13 @@ git+ssh://USERNAME@git.osdn.net:/gitroot/mingw/mingw-org-wsl.git
 If you obtain source code from any URI, other than those canonical URIs
 listed above, (or any alternative URI as may be identified subsequently,
 at these URIs), then you should be advised that such source code is not
-maintained by the MinGW.org Development Team, and is likely obsolete.
+maintained by the MinGW.OSDN Development Team, and is likely obsolete.
 
 
 Description
 -----------
 
-MinGW.org-WSL is provided, and maintained by the MinGW.org Development
+MinGW.org-WSL is provided, and maintained by the MinGW.OSDN Development
 Team, to furnish essential bindings between the GNU Compiler Collection
 and the MS-Windows operating system.  Historically, development has been
 focused on support for the 32-bit MS-Windows platform.  However, these

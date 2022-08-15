@@ -1,12 +1,12 @@
 # Makefile.comm
 #
 # Common elements, shared by the subpackage makefiles for each of the
-# MinGW.org Runtime Library and Windows-32 API packages.
+# MinGW.OSDN Runtime Library and Windows-32 API packages.
 #
 # $Id$
 #
 # Written by Keith Marshall <keith@users.osdn.me>
-# Copyright (C) 2017, 2019, MinGW.org Project
+# Copyright (C) 2017, 2019, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
