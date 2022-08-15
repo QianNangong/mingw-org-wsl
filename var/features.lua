@@ -6,8 +6,8 @@
 -- Lua 5.2 module providing a mingw-get setup hook for configuration of
 -- the user's MinGW GCC compiler <features.h> preferences.
 --
--- Written by Keith Marshall <keithmarshall@users.sourceforge.net>
--- Copyright (C) 2019, MinGW.org Project
+-- Written by Keith Marshall <keith@users.osdn.me>
+-- Copyright (C) 2019, 2022, MinGW.OSDN Project
 --
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a
@@ -67,7 +67,7 @@
    { '/*',
      ' * features.h',
      ' *',
-     ' * Features configuration for MinGW.org GCC implementation; users may',
+     ' * Features configuration for MinGW.OSDN GCC implementation; users may',
      ' * customize this file, to establish their preferred default behaviour.',
      ' * Projects may provide an alternative, package-specific configuration,',
      ' * either by placing their own customized <features.h> in the package',
@@ -78,7 +78,7 @@
      ' * $'..'Id$',
      ' *',
      ' * Template written by Keith Marshall <keith@users.osdn.me>',
-     ' * Copyright (C) 2019, MinGW.org Project.',
+     ' * Copyright (C) 2019, 2022, MinGW.OSDN Project.',
      ' *',
      ' *',
      ' * Permission is hereby granted, free of charge, to any person obtaining a',
@@ -403,7 +403,7 @@
 --
      if not stream_file
      then
---     ...or falling back to "io.stderr", in the event that no output
+--     ...or falling back to "io.stdout", in the event that no output
 --     stream file has been opened...
 --
        stream_file = io.stdout
@@ -424,7 +424,7 @@
 --
      if not stream_file
      then
---     ...or falling back to "io.stderr", in the event that no output
+--     ...or falling back to "io.stdout", in the event that no output
 --     stream file has been opened...
 --
        stream_file = io.stdout

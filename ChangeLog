@@ -1,3 +1,13 @@
+2022-08-15  Keith Marshall  <keith@users.osdn.me>
+
+	Correct references in features configuration generator.
+
+	* var/features.lua: Replace all project name references to defunct
+	"MinGW.org" project name; refer to "MinGW.OSDN" instead.  Also correct
+	comments referring to configuration output; it is written to...
+	(io.stdout): ...this output stream, and not to...
+	(io.stderr): ...this.
+
 2022-10-31  Keith Marshall  <keith@users.osdn.me>
 
 	Correct project name references in project-common files.
