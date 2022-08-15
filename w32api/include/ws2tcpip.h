@@ -7,7 +7,7 @@
  * $Id$
  *
  * Contributed by Danny Smith <dannysmith@users.sourceforge.net>
- * Copyright (C) 2001-2003, 2005-2008, 2020, MinGW.org Project
+ * Copyright (C) 2001-2003, 2005-2008, 2020, 2022, MinGW.OSDN Project
  *
  * Portions Copyright (c) 1980, 1983, 1988, 1993
  * The Regents of the University of California.  All rights reserved.

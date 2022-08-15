@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Anders Norlander <anorland@hem2.passagen.se>
- * Copyright (C) 1998-2002, 2004, 2007, 2017, MinGW.org Project
+ * Copyright (C) 1998-2002, 2004, 2007, 2017, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

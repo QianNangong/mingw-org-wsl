@@ -1,3 +1,25 @@
+2022-08-15  Keith Marshall  <keith@users.osdn.me>
+
+	Correct project name references in w32api source files.
+
+	* README.w32api Makefile.in configure.ac include/commctrl.h
+	* include/dbt.h include/ddk/ntdddisk.h include/ddk/ntddk.h
+	* include/ddk/ntddstor.h include/ddk/winddk.h include/iptypes.h
+	* include/legacy.h include/nspapi.h include/obsolete.h.in
+	* include/prsht.h include/sdkddkver.h include/versionhelpers.h
+	* include/w32api.h.in include/winbase.h include/wincon.h
+	* include/wincrypt.h include/windef.h include/windows.h
+	* include/winerror.h include/wingdi.h include/winioctl.h
+	* include/winnetwk.h include/winnls.h include/winnt.h
+	* include/winperf.h include/winreg.h include/winsock.h
+	* include/winsock2.h include/winspool.h include/winsvc.h
+	* include/winuser.h include/winver.h include/ws2spi.h
+	* include/ws2tcpip.h include/wsnetbs.h include/wspiapi.h
+	* include/wtypes.h lib/availapi.c lib/osvercmp.c tests/Makefile.in
+	* tests/atlocal.in tests/headers.at tests/testsuite.at.in
+	* tests/winsock.at: Replace all references to defunct "MinGW.org"
+	project name; refer to "MinGW.OSDN" instead.
+
 2021-06-13  Keith Marshall  <keith@users.osdn.me>
 
 	Implement pseudo-console legacy platform support.

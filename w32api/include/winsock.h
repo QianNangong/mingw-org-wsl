@@ -9,7 +9,7 @@
  * $Id$
  *
  * Adaptation by Anders Norlander <anorland@hem2.passagen.se>
- * Copyright (C) 1998-2004, 2012, 2016, 2017, 2019, MinGW.org Project.
+ * Copyright (C) 1998-2004, 2012, 2016, 2017, 2019, 2022, MinGW.OSDN Project
  *
  * Portions Copyright (C) 1980, 1983, 1988, 1993
  * The Regents of the University of California.  All rights reserved.
@@ -55,7 +55,7 @@
 #if _WIN32_WINNT >= _WIN32_WINNT_NT4
 /* When the target operating system is WinNT4, or later, we prefer to support
  * the WinSock v2 API, by default; (this is consistent with the default choice
- * which was traditionally specified within MinGW.org's <windows.h>).
+ * which was traditionally specified within MinGW.OSDN's <windows.h>).
  */
 #include "winsock2.h"
 

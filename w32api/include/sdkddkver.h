@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Earnie Boyd  <earnie@users.sourceforge.net>
- * Copyright (C) 2012, 2013, 2015, 2021, MinGW.org Project
+ * Copyright (C) 2012, 2013, 2015, 2021, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

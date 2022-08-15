@@ -1,12 +1,12 @@
 # configure.ac -*- Autoconf -*- vim: filetype=config
 #
 # Process this file with autoconf, to create a configure script for
-# the MinGW.org 32-bit MS-Windows API package.
+# the MinGW.OSDN 32-bit MS-Windows API package.
 #
 # $Id$
 #
 # Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2015-2017, MinGW.org Project
+# Copyright (C) 2015-2017, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

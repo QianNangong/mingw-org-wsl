@@ -10,7 +10,7 @@
  *
  * Contributed by the WINE Project.
  * Adaptation by Mumit Khan <khan@xraylith.wisc.edu>
- * Copyright (C) 1998-2005, 2011, 2016, 2017, 2019, MinGW.org Project
+ * Copyright (C) 1998-2005, 2011, 2016, 2017, 2019, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

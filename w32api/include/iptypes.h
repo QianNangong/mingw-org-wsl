@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Corinna Vinschen <corinna@vinschen.de>
- * Copyright (C) 2000-2002, 2006, 2018, MinGW.org Project
+ * Copyright (C) 2000-2002, 2006, 2018, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

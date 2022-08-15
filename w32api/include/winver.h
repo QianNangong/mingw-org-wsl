@@ -8,7 +8,7 @@
  *
  * Written by Anders Norlander <anorland@hem2.passagen.se>
  * Copyright (C) 1998, 1999, 2002, 2006, 2009, 2012, 2015, 2016, 2018,
- *   MinGW.org Project
+ *  2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -32,8 +32,8 @@
  *
  */
 #ifndef _WINVER_H
-#define _WINVER_H
 #pragma GCC system_header
+#define _WINVER_H
 
 #define VS_FILE_INFO		RT_VERSION
 #define VS_VERSION_INFO 		 1

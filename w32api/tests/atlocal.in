@@ -1,11 +1,11 @@
 # @configure_input@
 #
-# Autotest configuration template for MinGW.org Runtime Library Package
+# Autotest configuration template for MinGW.OSDN Runtime Library Package
 #
 # $Id$
 #
-# Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2017, MinGW.org Project
+# Written by Keith Marshall <keith@users.osdn.me>
+# Copyright (C) 2017, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

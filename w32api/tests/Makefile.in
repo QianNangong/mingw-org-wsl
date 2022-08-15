@@ -1,11 +1,11 @@
 # @configure_input@
 #
-# Makefile template for MinGW.org Win32 API testsuite
+# Makefile template for MinGW.OSDN Win32 API testsuite
 #
 # $Id$
 #
-# Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2017, 2019, 2020, MinGW.org Project
+# Written by Keith Marshall <keith@users.osdn.me>
+# Copyright (C) 2017, 2019, 2020, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Kai Henningsen <kai-henningsen@users.sourceforge.net>
- * Copyright (C) 2002, 2017, 2019, MinGW.org Project
+ * Copyright (C) 2002, 2017, 2019, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Anders Norlander <anorland@hem2.passagen.se>
- * Copyright (C) 1998-2011, 2016, 2017, 2019, MinGW.org Project
+ * Copyright (C) 1998-2011, 2016, 2017, 2019, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -4250,7 +4250,7 @@ struct _TEB *NtCurrentTeb (void);
  * implementation, nor the following, actually exhibits any dependency
  * on any OS feature specific to these, or later versions.
  *
- * For this MinGW.org MemoryBarrier() implementation, we aim to rely,
+ * For this MinGW.OSDN MemoryBarrier() implementation, we aim to rely,
  * to the maximum practicable extent, on the intrinsic implementations
  * provided by the GCC compiler itself; thus, for those recent versions
  * of GCC, (those which implement the sequentially consistent model for
