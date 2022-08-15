@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Jan-Jaap van der Heijden
- * Copyright (C) 1997-1999, 2001-2004, 2007, 2016, MinGW.org Project.
+ * Copyright (C) 1997-1999, 2001-2004, 2007, 2016, 2022, MinGW.OSDN Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

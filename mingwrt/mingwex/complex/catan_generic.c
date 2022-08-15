@@ -6,9 +6,9 @@
  * Compute the complex arctan corresponding to a complex tangent value;
  * a generic implementation for catan(), catanf(), and catanl().
  *
- * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
+ * Written by Keith Marshall <keith@users.osdn.me>
  * This is an adaptation of an original contribution by Danny Smith
- * Copyright (C) 2003-2005, 2015, MinGW.org Project
+ * Copyright (C) 2003-2005, 2015, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -32,7 +32,7 @@
  *
  *
  * This is a generic implementation for all of the catan(), catanl(),
- * and catanh() functions; each is to be compiled separately, i.e.
+ * and catanf() functions; each is to be compiled separately, i.e.
  *
  *   gcc -D FUNCTION=catan  -o catan.o  catan_generic.c
  *   gcc -D FUNCTION=catanl -o catanl.o catan_generic.c

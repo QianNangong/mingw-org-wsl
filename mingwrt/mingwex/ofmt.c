@@ -7,8 +7,8 @@
  *
  * $Id$
  *
- * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 2014, 2015, 2017, 2018, MinGW.org Project
+ * Written by Keith Marshall <keith@users.osdn.me>
+ * Copyright (C) 2014, 2015, 2017, 2018, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -70,7 +70,7 @@
  * in cases where the native implementation IS available, each wrapper
  * simply delegates to the MSVCRT.DLL implementation.
  *
- * Note that each of these wrapper functions depends upon the MinGW.org
+ * Note that each of these wrapper functions depends upon the MinGW.OSDN
  * implementation of the POSIX dlsym() function, which is also provided
  * in libmingwex.a, and prototyped in dlfcn.h
  *

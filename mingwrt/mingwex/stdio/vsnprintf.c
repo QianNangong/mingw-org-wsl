@@ -11,14 +11,14 @@
  * directly, using this fully qualified form of its name).
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2008, 2019, MinGW.org Project
+ * Copyright (C) 2008, 2019, 2022, MinGW.OSDN Project
  *
  * This replaces earlier, substantially different implementations,
  * originally provided as vsnprintf.c, and later encapsulated within
  * gdtoa/mingw_snprintf.c:
  *
  * Written by Danny Smith <dannysmith@users.sourceforge.net>
- * Copyright (C) 2002, 2003, 2007, 2008, MinGW.org Project
+ * Copyright (C) 2002, 2003, 2007, 2008, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

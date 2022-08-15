@@ -6,9 +6,9 @@
  * Compute the principal square root of a complex number; this provides
  * a generic implementation for csqrt(), csqrtf(), and csqrtl().
  *
- * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
+ * Written by Keith Marshall <keith@users.osdn.me>
  * This is an adaptation of an original contribution by Danny Smith
- * Copyright (C) 2003, 2014, 2015, MinGW.org Project
+ * Copyright (C) 2003, 2014, 2015, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -32,7 +32,7 @@
  *
  *
  * This is a generic implementation for all of the csqrt(), csqrtl(),
- * and csqrth() functions; each is to be compiled separately, i.e.
+ * and csqrtf() functions; each is to be compiled separately, i.e.
  *
  *   gcc -D FUNCTION=csqrt  -o csqrt.o  csqrt_generic.c
  *   gcc -D FUNCTION=csqrtl -o csqrtl.o csqrt_generic.c

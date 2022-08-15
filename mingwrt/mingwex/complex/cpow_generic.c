@@ -7,9 +7,9 @@
  * power, N; this provides a generic implementation for each of the
  * cpow(), cpowf(), and cpowl() functions.
  *
- * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
+ * Written by Keith Marshall <keith@users.osdn.me>
  * This is an adaptation of an original contribution by Danny Smith
- * Copyright (C) 2003, 2014, MinGW.org Project
+ * Copyright (C) 2003, 2014, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -33,7 +33,7 @@
  *
  *
  * This is a generic implementation for all of the cpow(), cpowl(),
- * and cpowh() functions; each is to be compiled separately, i.e.
+ * and cpowf() functions; each is to be compiled separately, i.e.
  *
  *   gcc -D FUNCTION=cpow  -o cpow.o  cpow_generic.c
  *   gcc -D FUNCTION=cpowl -o cpowl.o cpow_generic.c

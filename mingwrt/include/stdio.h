@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2005, 2007-2010, 2014-2019, MinGW.org Project.
+ * Copyright (C) 1997-2005, 2007-2010, 2014-2019, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -318,7 +318,7 @@ _CRTIMP __cdecl __MINGW_NOTHROW  void   setbuf (FILE *, char *);
 #define __Wformat(F)		__mingw_##F
 
 /* ...while degrading to gnu_printf checking for snprintf()
- * and vsnprintf(), (which are ALWAYS MinGW.org variants).
+ * and vsnprintf(), (which are ALWAYS MinGW.OSDN variants).
  */
 #define __mingw_printf__	__gnu_printf__
 #endif
@@ -333,7 +333,7 @@ _CRTIMP __cdecl __MINGW_NOTHROW  void   setbuf (FILE *, char *);
 #define __Wformat_vfprintf	__Wformat_mingw_printf(2,0)
 #define __Wformat_vsprintf	__Wformat_mingw_printf(2,0)
 
-/* ...while this pair are specific to the two MinGW.org
+/* ...while this pair are specific to the two MinGW.OSDN
  * only functions.
  */
 #define __Wformat_snprintf	__Wformat_mingw_printf(3,4)

@@ -1,12 +1,12 @@
 # configure.ac -*- Autoconf -*- vim: filetype=config
 #
 # Process this file with autoconf, to create a configure script for
-# the MinGW.org Runtime Library package.
+# the MinGW.OSDN Runtime Library package.
 #
 # $Id$
 #
 # Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2014-2017, MinGW.org Project
+# Copyright (C) 2014-2017, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

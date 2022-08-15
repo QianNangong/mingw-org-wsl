@@ -1,14 +1,14 @@
 /*
  * ofmtctl.c
  *
- * Implementation of a MinGW.org specific helper routine, to manipulate
+ * Implementation of a MinGW.OSDN specific helper routine, to manipulate
  * supplementary output format control flags other than those specified
  * for the Microsoft output format control API.
  *
  * $Id$
  *
- * Written by Keith Marshall  <keithmarshall@users.sourceforge.net>
- * Copyright (C) 2015, MinGW.org Project.
+ * Written by Keith Marshall  <keith@users.osdn.me>
+ * Copyright (C) 2015, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -34,11 +34,11 @@
 #include <stdio.h>
 
 /* MinGW uses this public symbol to represent both Microsoft's exponent
- * digit format flag, and supplementary MinGW.org specific flags.
+ * digit format flag, and supplementary MinGW.OSDN specific flags.
  */
 extern unsigned int __mingw_output_format_flags;
 
-/* The MinGW.org specific output format flag management API function.
+/* The MinGW.OSDN specific output format flag management API function.
  * This provides both get and set capabilities for the MinGW specified
  * flags; it has no effect on the Microsoft specified flags; use their
  * _get_output_format() and _set_output_format() API functions when it

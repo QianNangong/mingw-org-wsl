@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2014, 2021, MinGW.org Project
+ * Copyright (C) 2014, 2021, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

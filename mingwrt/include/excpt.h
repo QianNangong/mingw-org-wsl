@@ -8,8 +8,8 @@
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
  * Revised by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 1997, 1999, 2001-2002, 2004, 2007, 2012, 2016,
- *  MinGW.org Project.
+ * Copyright (C) 1997, 1999, 2001-2002, 2004, 2007, 2012, 2016, 2022,
+ *  MinGW.OSDN Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

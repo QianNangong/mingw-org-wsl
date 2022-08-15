@@ -11,8 +11,8 @@
  *   Ramiro Polla <ramiro@lisha.ufsc.br>
  *   Gregory McGarry  <gregorymcgarry@users.sourceforge.net>
  *   Keith Marshall  <keith@users.osdn.me>
- * Copyright (C) 1997, 1999, 2002-2004, 2007-2009, 2014-2017, 2020,
- *   2021, MinGW.org Project.
+ * Copyright (C) 1997, 1999, 2002-2004, 2007-2009, 2014-2017, 2020-2022,
+ *  MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

@@ -1,16 +1,16 @@
 /*
  * wcrtomb.c
  *
- * MinGW.org replacement for the wcrtomb() function; supports use of this
+ * MinGW.OSDN replacement for the wcrtomb() function; supports use of this
  * function on legacy Windows versions, for which it is not available in the
  * C runtime DLL, and replaces the Microsoft implementation, in those cases
  * where one is available.
  *
  *
- * $Id: wcrtomb.c,v 28b17d1c4eab 2020/07/07 21:02:51 keith $
+ * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2019, 2020, MinGW.org Project
+ * Copyright (C) 2019, 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -118,4 +118,4 @@ size_t wcrtomb( char *restrict mb, wchar_t wc, mbstate_t *restrict ps )
   return __wcrtomb_internal( mb, wc, __mbrtowc_state( ps ) );
 }
 
-/* $RCSfile: wcrtomb.c,v $: end of file */
+/* $RCSfile$: end of file */

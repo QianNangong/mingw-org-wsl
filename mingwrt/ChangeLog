@@ -1,3 +1,49 @@
+2022-08-15  Keith Marshall  <keith@users.osdn.me>
+
+	Correct project name references in mingwrt source files.
+
+	* README CRT_fenv.c Makefile.in configure.ac cpu_features.sx crt1.c
+	* setargv.c include/_mingw.h.in include/alloca.h include/conio.h
+	* include/ctype.h include/dir.h include/direct.h include/dlfcn.h
+	* include/dos.h include/errno.h include/excpt.h include/fenv.h
+	* include/float.h include/getopt.h include/glob.h include/io.h
+	* include/libgen.h include/limits.h include/locale.h include/malloc.h
+	* include/math.h include/msvcrtver.h include/process.h
+	* include/stdint.h include/stdio.h include/stdlib.h include/string.h
+	* include/strings.h include/time.h include/unistd.h include/wchar.h
+	* include/wctype.h include/sys/bsdtypes.h include/sys/stat.h
+	* include/sys/time.h include/sys/timeb.h include/sys/types.h
+	* include/sys/utime.h mingwex/basename.c mingwex/btowc.c
+	* mingwex/clockapi.c mingwex/clockapi.h mingwex/clockres.c
+	* mingwex/clockset.c mingwex/clocktime.c mingwex/codeset.c
+	* mingwex/complex/cabs_generic.c mingwex/complex/casin_generic.c
+	* mingwex/complex/catan_generic.c mingwex/complex/clog_generic.c
+	* mingwex/complex/cpow_generic.c mingwex/complex/csqrt_generic.c
+	* mingwex/cryptnam.c mingwex/dirent.c mingwex/dirname.c
+	* mingwex/dlfcn.c mingwex/fesetenv.c mingwex/ftruncate.c
+	* mingwex/glob.c mingwex/imaxdiv.c mingwex/insque.c mingwex/jmpstub.sx
+	* mingwex/math/asinh_generic.c mingwex/math/errno.sx
+	* mingwex/math/fmod_generic.sx.in mingwex/math/hypot_generic.c
+	* mingwex/math/log10_generic.sx mingwex/math/log1p_generic.sx
+	* mingwex/math/log2_generic.sx mingwex/math/log_generic.sx
+	* mingwex/math/pow_generic.sx mingwex/math/random.c
+	* mingwex/math/remquo_generic.sx mingwex/math/x87cvt_generic.sx
+	* mingwex/mbrconv.c mingwex/mbrlen.c mingwex/mbrscan.c
+	* mingwex/mbrtowc.c mingwex/mbsrtowcs.c mingwex/memalign.c
+	* mingwex/memcrypt.c mingwex/mkdtemp.c mingwex/mkstemp.c
+	* mingwex/nsleep.c mingwex/ofmt.c mingwex/ofmtctl.c mingwex/remque.c
+	* mingwex/setenv.c mingwex/stdio/fseeki64.c mingwex/stdio/ftelli64.c
+	* mingwex/stdio/fwrite.c mingwex/stdio/getdelim.c
+	* mingwex/stdio/pformat.c mingwex/stdio/snprintf.c
+	* mingwex/stdio/vsnprintf.c mingwex/strerror_r.c mingwex/strnlen.sx
+	* mingwex/strtok_r.c mingwex/wcharmap.c mingwex/wcharmap.h
+	* mingwex/wcrtomb.c mingwex/wcsrtombs.c mingwex/wcstofp.c
+	* mingwex/wctob.c tests/Makefile.in tests/ansiprintf.at
+	* tests/atlocal.in tests/clockapi.at tests/headers.at
+	* tests/logarithms.at tests/memalign.at tests/powerfunc.at
+	* tests/testsuite.at.in: Replace all references to defunct "MinGW.org"
+	project name; refer to "MinGW.OSDN" instead.
+
 2022-01-29  Keith Marshall  <keith@users.osdn.me>
 
 	Stop creating redundant "include/parts" directory.

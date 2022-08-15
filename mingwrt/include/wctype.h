@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Mumit Khan <khan@xraylith.wisc.edu>
- * Copyright (C) 1999-2003, 2005-2007, 2016, 2017, MinGW.org Project
+ * Copyright (C) 1999-2003, 2005-2007, 2016, 2017, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

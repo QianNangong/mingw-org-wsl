@@ -8,7 +8,7 @@
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
  * Copyright (C) 1997, 1999, 2002-2007, 2009, 2010, 2014, 2016,
- *   2017, 2020, MinGW.org Project.
+ *  2017, 2020, 2022, MinGW.OSDN Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

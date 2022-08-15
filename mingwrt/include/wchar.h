@@ -8,8 +8,8 @@
  *
  * Unattributed original source.
  * Adapted by Rob Savoye <rob@cygnus.com>
- * Copyright (C) 1997, 1999-2009, 2011, 2015, 2016, 2018-2020,
- *   MinGW.org Project.
+ * Copyright (C) 1997, 1999-2009, 2011, 2015, 2016, 2018-2020, 2022,
+ *  MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

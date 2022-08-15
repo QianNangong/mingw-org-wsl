@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2021, MinGW.org Project
+ * Copyright (C) 2021, 2022, MinGW.OSDN Project
  *
  *
  * This is free software.  Permission is granted to copy, modify and
@@ -31,7 +31,7 @@
  *
  * It is believed that the output from the PRNG will closely mimic that
  * from the GLIBC implementation; however, neither the author of this
- * implementation, nor the MinGW.org Project, offer any assurance as to
+ * implementation, nor the MinGW.OSDN Project, offer any assurance as to
  * the statistical quality of the generated number sequence.
  *
  *

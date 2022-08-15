@@ -7,7 +7,7 @@
  * $Id$
  *
  * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 2015, MinGW.org Project
+ * Copyright (C) 2015, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -31,8 +31,8 @@
  *
  */
 #ifndef _MSVCRTVER_H
-#define _MSVCRTVER_H
 #pragma GCC system_header
+#define _MSVCRTVER_H
 
 /* When it is intended to link an application with any one of the
  * MSVC version specific MSVCRxx.DLL libraries, rather than with the

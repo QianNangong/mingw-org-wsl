@@ -7,7 +7,8 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997, 1999-2001, 2003, 2004, 2007, 2018, MinGW.org Project.
+ * Copyright (C) 1997, 1999-2001, 2003, 2004, 2007, 2018, 2022,
+ *  MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -45,7 +46,7 @@
   */
 #define _CONIO_H
 
-/* All MinGW.org headers are expected to include <_mingw.h>; when
+/* All MinGW.OSDN headers are expected to include <_mingw.h>; when
  * selectively included by <wchar.h>, that responsibility has already
  * been addressed, but for free-standing inclusion we do so now.
  */

@@ -1,4 +1,3 @@
-#ifndef _GLOB_H
 /*
  * glob.h
  *
@@ -8,7 +7,7 @@
  * $Id$
  *
  * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 2011, 2012, 2014, 2016, 2017, MinGW.org Project.
+ * Copyright (C) 2011, 2012, 2014, 2016, 2017, 2022, MinGW.OSDN Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -31,10 +30,11 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-#define _GLOB_H  1
+#ifndef _GLOB_H
 #pragma GCC system_header
+#define _GLOB_H  1
 
-/* All MinGW.org system headers are required to include <_mingw.h>.
+/* All MinGW.OSDN system headers are required to include <_mingw.h>.
  */
 #include <_mingw.h>
 

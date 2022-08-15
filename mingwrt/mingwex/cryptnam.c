@@ -4,13 +4,13 @@
  * Implementation of a cryptographically secure random character sequence
  * generator; this is specifically tailored to satisfy the requirement for
  * replacement of the sequence of six 'XXXXXX's, within the templates for
- * the file name, or the directory name, in MinGW.org implementations of
+ * the file name, or the directory name, in MinGW.OSDN implementations of
  * the mkstemp(3) and mkdtemp(3) functions, respectively.
  *
- * $Id: cryptnam.c,v 5f021e118870 2020/07/20 19:17:27 keith $
+ * $Id$
  *
  * Written by Keith Marshall  <keith@users.osdn.me>
- * Copyright (C) 2013, 2014, 2018-2020, MinGW.org Project.
+ * Copyright (C) 2013, 2014, 2018-2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -134,4 +134,4 @@ char *__mingw_crypto_tmpname( char *template )
   return template;
 }
 
-/* $RCSfile: cryptnam.c,v $: end of file */
+/* $RCSfile$: end of file */

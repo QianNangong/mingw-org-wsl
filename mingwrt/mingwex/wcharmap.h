@@ -1,14 +1,14 @@
 /*
  * wcharmap.h
  *
- * Private header file, declaring common components of the MinGW.org
+ * Private header file, declaring common components of the MinGW.OSDN
  * fallback implementations of wide to multi-byte (and complementary)
  * character set conversion API functions.
  *
  * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2019, 2020, MinGW.org Project
+ * Copyright (C) 2019, 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

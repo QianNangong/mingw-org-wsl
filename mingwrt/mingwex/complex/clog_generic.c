@@ -6,9 +6,9 @@
  * Compute the logarithm of a complex number; this provides a generic
  * implementation for the clog(), clogf(), and clogl() functions.
  *
- * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
+ * Written by Keith Marshall <keith@users.osdn.me>
  * This is an adaptation of original contributions by Danny Smith
- * Copyright (C) 2003-2005, 2015, MinGW.org Project
+ * Copyright (C) 2003-2005, 2015, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

@@ -8,7 +8,7 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2001, 2003, 2004, 2007, 2018, MinGW.org Project
+ * Copyright (C) 1997-2001, 2003, 2004, 2007, 2018, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

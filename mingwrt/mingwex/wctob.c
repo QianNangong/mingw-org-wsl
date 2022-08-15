@@ -7,10 +7,10 @@
  * MSVCRT.DLL, or MSVCRn.DLL which does.
  *
  *
- * $Id: wctob.c,v 28b17d1c4eab 2020/07/07 21:02:51 keith $
+ * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2020, MinGW.org Project
+ * Copyright (C) 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -51,4 +51,4 @@ int wctob( wint_t wc )
     ? (int)(retval.u) : EOF;
 }
 
-/* $RCSfile: wctob.c,v $: end of file */
+/* $RCSfile$: end of file */

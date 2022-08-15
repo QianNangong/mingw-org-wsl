@@ -17,8 +17,8 @@
  *
  * Further significantly revised for improved memory utilisation,
  * efficiency in operation, and better POSIX standards compliance
- * by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 1997, 2001-2006, 2014, 2017, MinGW.org Project
+ * by Keith Marshall <keith@users.osdn.me>
+ * Copyright (C) 1997, 2001-2006, 2014, 2017, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

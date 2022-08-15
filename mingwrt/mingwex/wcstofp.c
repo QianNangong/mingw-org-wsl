@@ -9,7 +9,7 @@
  * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2020, MinGW.org Project
+ * Copyright (C) 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -43,7 +43,7 @@
 
 /* Parsing of floating point values, from wchar_t strings, is performed
  * after conversion to the MBCS domain; to support any codeset with more
- * than two bytes per code point, we require MinGW.org's extended codeset
+ * than two bytes per code point, we require MinGW.OSDN's extended codeset
  * mapping API.
  */
 #include "wcharmap.h"

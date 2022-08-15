@@ -1,4 +1,3 @@
-#ifndef _LIBGEN_H_
 /*
  * libgen.h
  *
@@ -6,8 +5,8 @@
  *
  * $Id$
  *
- * Written by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 2006, 2007, 2014, MinGW.org Project
+ * Written by Keith Marshall <keith@users.osdn.me>
+ * Copyright (C) 2006, 2007, 2014, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -30,7 +29,9 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-#define _LIBGEN_H_
+#ifndef _LIBGEN_H
+#pragma GCC system_header
+#define _LIBGEN_H
 
 /* All the headers include this file. */
 #include <_mingw.h>
@@ -51,4 +52,4 @@ __cdecl char *dirname (char *__path){ return __mingw_dirname (__path); }
 
 _END_C_DECLS
 
-#endif	/* _LIBGEN_H_: end of file */
+#endif	/* !_LIBGEN_H: $RCSfile$: end of file */

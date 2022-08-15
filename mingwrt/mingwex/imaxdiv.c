@@ -8,7 +8,7 @@
  * $Id$
  *
  * Written by Doug Gwyn <gwyn@arl.mil>
- * Copyright (C) 1999, 2018, MinGW.org Project.
+ * Copyright (C) 1999, 2018, 2022, MinGW.OSDN Project
  *
  *
  * Abstracted from the Q8 package, which was originally placed, by the

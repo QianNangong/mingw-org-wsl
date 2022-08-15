@@ -6,8 +6,8 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-1999, 2001, 2003-2005, 2007, 2016, 2020,
- *   MinGW.org Project.
+ * Copyright (C) 1997-1999, 2001, 2003-2005, 2007, 2016, 2020, 2022,
+ *   MinGW.OSDN Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -162,7 +162,7 @@ _END_C_DECLS
  * header is subsequently included.
  *
  * NOTE: this assumes pthreads-win32-2.10 or later, with corresponding
- * MinGW.org patches applied; it will favour "ptw32_errno.h" installed
+ * MinGW.OSDN patches applied; it will favour "ptw32_errno.h" installed
  * in the mingwrt system include directory.
  */
 #include "ptw32_errno.h"

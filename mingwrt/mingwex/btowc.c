@@ -8,10 +8,10 @@
  * as mbrtowc(), which may need to return surrogate pairs.
  *
  *
- * $Id: btowc.c,v 28b17d1c4eab 2020/07/07 21:02:51 keith $
+ * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2020, MinGW.org Project
+ * Copyright (C) 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -55,4 +55,4 @@ wint_t btowc( int c )
   return WEOF;
 }
 
-/* $RCSfile: btowc.c,v $: end of file */
+/* $RCSfile$: end of file */

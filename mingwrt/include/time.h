@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2007, 2011, 2015-2018, MinGW.org Project.
+ * Copyright (C) 1997-2007, 2011, 2015-2018, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -54,7 +54,7 @@
 
 #if defined __SCHED_H_SOURCED__
 /* This is selective inclusion by <sched.h>; although not a standard
- * MinGW.org header, we provide this hook to grant access from third
+ * MinGW.OSDN header, we provide this hook to grant access from third
  * party implementations, (e.g. pthreads-win32), to get a definition
  * for struct timespec, which POSIX requires it to provide.
  *

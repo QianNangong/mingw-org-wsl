@@ -7,8 +7,8 @@
  *
  * $Id$
  *
- * Abstracted from MinGW.org's WinSock implementation
- * Copyright (C) 2017, MinGW.org Project
+ * Abstracted from MinGW.OSDN's WinSock implementation
+ * Copyright (C) 2017, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -40,7 +40,7 @@
  */
 #ifndef _BSDTYPES_DEFINED
 
-/* All MinGW.org headers are required to include <_mingw.h>
+/* All MinGW.OSDN headers are required to include <_mingw.h>
  */
 #include <_mingw.h>
 

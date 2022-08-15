@@ -1,13 +1,13 @@
 # @configure_input@
 # $Id$
 #
-# Makefile template for MinGW.org Runtime Library Package
+# Makefile template for MinGW.OSDN Runtime Library Package
 
 PACKAGE_TARNAME := @PACKAGE_TARNAME@
 PACKAGE_VERSION := @PACKAGE_VERSION@
 
 # Written by Keith Marshall <keith@users.osdn.me>
-# Copyright (C) 2014-2022, MinGW.org Project
+# Copyright (C) 2014-2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
@@ -544,7 +544,7 @@ remainder_generic_subst = s:%name%:$*:;s:%fprem%:fprem1:
 x87%.$(OBJEXT): %_generic.sx
 	$(COMPILE.sx) -o $@ $<
 
-# Historically, MinGW.org's libm.a has been a dummy, delivering
+# Historically, MinGW.OSDN's libm.a has been a dummy, delivering
 # nothing of value; FIXME: IMO, this sucks; it should deliver the
 # non-MSVCRT.DLL math functions, as noted above.
 #

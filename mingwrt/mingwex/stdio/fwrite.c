@@ -8,12 +8,12 @@
  * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2018, MinGW.org Project.
+ * Copyright (C) 2018, 2022, MinGW.OSDN Project.
  *
  *
  * Replaces mingw-fseek.c implementation
  * Written by Mumit Khan <khan@xraylith.wisc.edu>
- * Copyright (C) 1999, 2002-2005, 2011, 2015, MinGW.org Project.
+ * Copyright (C) 1999, 2002-2005, 2011, 2015, MinGW.OSDN Project.
  *
  * Originally abstracted from MinGW local patch to binutils/bfd/libbfd.c
  *

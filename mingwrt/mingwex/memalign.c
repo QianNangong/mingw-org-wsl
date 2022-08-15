@@ -1,7 +1,7 @@
 /*
  * memalign.c
  *
- * MinGW.org retrofit replacements for Microsoft's aligned heap memory
+ * MinGW.OSDN retrofit replacements for Microsoft's aligned heap memory
  * management APIs, extending related functionality to legacy versions
  * of Windows, which lack native support for these APIs.
  *
@@ -9,13 +9,13 @@
  * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2018, 2019, MinGW.org Project
+ * Copyright (C) 2018, 2019, 2022, MinGW.OSDN Project
  *
  * Derived (with extensive modification) from, and replacing, the original
  * mingw-aligned-malloc.c implementation:
  *
  * Written by Steven G. Johnson <stevenj@alum.mit.edu>
- * Copyright (C) 2004, MinGW.org Project
+ * Copyright (C) 2004, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -39,7 +39,7 @@
  *
  *
  * This translation unit furnishes common source for multiple components of
- * the MinGW.org aligned heap memory management API; to create each separate
+ * the MinGW.OSDN aligned heap memory management API; to create each separate
  * component, it must be compiled multiple times, e.g. thus:
  *
  *   gcc -c -D__mingw_memalign_lwm_case -o memalign-lwm.o memalign.c
@@ -336,12 +336,12 @@ void *__mingw_memalign_base( void *ptr, struct memalign *base )
 
 #elif __mingw_aligned_malloc_case
 /* The fundamental handler for all new aligned heap allocation requests;
- * all MinGW.org aligned allocators, (but not re-allocators), should call
+ * all MinGW.OSDN aligned allocators, (but not re-allocators), should call
  * this, to obtain a heap block which will fulfil the request.
  */
 void *__mingw_aligned_offset_malloc( size_t want, size_t align, size_t offset )
 {
-  /* MinGW.org replacement for Microsoft's _aligned_offset_malloc(); if
+  /* MinGW.OSDN replacement for Microsoft's _aligned_offset_malloc(); if
    * called with an "offset" argument of zero, it may also be used as an
    * effective replacement for Microsoft's _aligned_malloc(), and with
    * appropriate wrappers, to map out argument distinctions, it may even
@@ -415,7 +415,7 @@ void *__mingw_aligned_offset_malloc( size_t want, size_t align, size_t offset )
 }
 
 #elif __mingw_aligned_realloc_case
-/* The first of two public entry points, for access to the MinGW.org
+/* The first of two public entry points, for access to the MinGW.OSDN
  * aligned heap memory reallocation API.  Most applications should use
  * the alternative entry point, as specified below, but this entry point
  * may be preferred when strict semantic compatibility with Microsoft's
@@ -424,7 +424,7 @@ void *__mingw_aligned_offset_malloc( size_t want, size_t align, size_t offset )
 void *__mingw_aligned_offset_realloc
 ( void *ptr, size_t want, size_t align, size_t offset )
 {
-  /* MinGW.org replacement for Microsoft's _aligned_offset_realloc();
+  /* MinGW.OSDN replacement for Microsoft's _aligned_offset_realloc();
    * also suitable as a replacement for Microsoft's _aligned_realloc(),
    * when called with an "offset" argument of zero.
    */
@@ -492,14 +492,14 @@ void *__mingw_aligned_offset_realloc
     error_return( EINVAL, NULL );
   }
   /* When called with a NULL "ptr" argument, this becomes an effective
-   * equivalent for MinGW.org's __mingw_aligned_offset_realloc().
+   * equivalent for MinGW.OSDN's __mingw_aligned_offset_realloc().
    */
   return __mingw_aligned_offset_malloc( want, align, offset );
 }
 
 #elif __mingw_realloc_case
 /* The second, and nominally preferred, of two public entry points to the
- * MinGW.org aligned heap memory reallocation API.  This exhibits semantics
+ * MinGW.OSDN aligned heap memory reallocation API.  This exhibits semantics
  * matching those of realloc(), while supporting operation on both pointers
  * as returned by __mingw_aligned_offset_malloc(), in addition to pointers
  * as returned directly by malloc(); thus, it offers a broader spectrum of
@@ -535,7 +535,7 @@ void *__mingw_realloc( void *ptr, size_t want )
 	if( base.offset >= want ) error_return( EINVAL, NULL );
 
 	/* ...so, provided this is satisfied, we may hand off the
-	 * request, to the MinGW.org aligned heap reallocator.
+	 * request, to the MinGW.OSDN aligned heap reallocator.
 	 */
 	return __mingw_memalign_realloc( ptr, &base, want );
       }
@@ -558,7 +558,7 @@ void *__mingw_realloc( void *ptr, size_t want )
 }
 
 #elif __mingw_memalign_realloc_case
-/* Core implementation for the MinGW.org aligned heap memory reallocator;
+/* Core implementation for the MinGW.OSDN aligned heap memory reallocator;
  * provides the common component of the reallocator, shared by each of the
  * preceding user visible APIs, and, although offering a publicly exposed
  * entry point, it is considered private to the implementation.
@@ -631,7 +631,7 @@ void *__mingw_memalign_realloc( void *ptr, struct memalign *base, size_t want )
 }
 
 #elif __mingw_free_case
-/* The MinGW.org API for freeing allocated heap memory, regardless of
+/* The MinGW.OSDN API for freeing allocated heap memory, regardless of
  * the original method of allocation.
  */
 void __mingw_free( void * )__attribute__((alias("__mingw_aligned_free")));

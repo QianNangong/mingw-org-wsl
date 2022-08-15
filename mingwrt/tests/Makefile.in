@@ -1,11 +1,11 @@
 # @configure_input@
 #
-# Makefile template for MinGW.org Runtime Library testsuite
+# Makefile template for MinGW.OSDN Runtime Library testsuite
 #
 # $Id$
 #
 # Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2016, 2017, 2019, 2020, MinGW.org Project
+# Copyright (C) 2016, 2017, 2019, 2020, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

@@ -1,15 +1,15 @@
 /*
  * wcsrtombs.c
  *
- * MinGW.org implementation of the wcsrtombs() function; supports use of
+ * MinGW.OSDN implementation of the wcsrtombs() function; supports use of
  * this function on any legacy Windows version, for which Microsoft do not
  * provide it, and replaces the Microsoft implementation, when they do.
  *
  *
- * $Id: wcsrtombs.c,v 28b17d1c4eab 2020/07/07 21:02:51 keith $
+ * $Id$
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2019, 2020, MinGW.org Project
+ * Copyright (C) 2019, 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -154,4 +154,4 @@ size_t wcsrtombs( char *mbs, const wchar_t **wcs, size_t len, mbstate_t *ps )
   return __mingw_wcsrtombs_internal( mbs, wcs, len, ps );
 }
 
-/* $RCSfile: wcsrtombs.c,v $: end of file */
+/* $RCSfile$: end of file */

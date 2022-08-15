@@ -8,7 +8,7 @@
  * to support Microsoft's non-standard format specifications.
  *
  * Written by Keith Marshall <keith@users.osdn.me>
- * Copyright (C) 2008, 2009, 2011, 2014-2018, 2020, MinGW.org Project
+ * Copyright (C) 2008, 2009, 2011, 2014-2018, 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

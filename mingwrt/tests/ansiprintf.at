@@ -1,12 +1,12 @@
 # ansiprintf.at
 #
-# Autotest module to verify correct operation of MinGW.org's suite of
+# Autotest module to verify correct operation of MinGW.OSDN's suite of
 # ANSI compliant replacements for the printf() family of functions.
 #
 # $Id$
 #
-# Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2016, MinGW.org Project
+# Written by Keith Marshall <keith@users.osdn.me>
+# Copyright (C) 2016, 2022, MinGW.OSDN Project
 #
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

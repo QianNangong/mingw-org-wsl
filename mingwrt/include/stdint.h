@@ -7,7 +7,8 @@
  * $Id$
  *
  * Written by Danny Smith <danny_r_smith_2001@yahoo.co.nz>
- * Copyright (C) 2000-2002, 2004, 2005, 2007, 2009, 2016, MinGW.org Project.
+ * Copyright (C) 2000-2002, 2004, 2005, 2007, 2009, 2016, 2022,
+ *  MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
