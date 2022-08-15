@@ -4,8 +4,8 @@
  * Template for generation of MSVCRT.DLL and MSVCRxx.DLL exports
  * definition files, supporting multiple OS platform versions.
  *
- * Compiled by Keith Marshall <keithmarshall@users.sourceforge.net>
- * Copyright (C) 2014, 2016, 2018, 2020, MinGW.org Project.
+ * Compiled by Keith Marshall <keith@users.osdn.me>
+ * Copyright (C) 2014, 2016, 2018, 2020, 2022, MinGW.OSDN Project
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

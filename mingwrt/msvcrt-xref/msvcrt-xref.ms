@@ -25,7 +25,7 @@
 .pdfhref O 1 "Front Matter"
 \*[TITLE]
 .AU
-Copyright \(co 2014, 2015, 2016, Keith Marshall
+Copyright \(co 2014, 2015, 2016, 2022, Keith Marshall
 .QP
 .nr midway \n(.p+\n(nl/2-3c
 .sp |\n[midway]u
@@ -65,7 +65,7 @@ The following pages tabulate the symbols\**, with \(oqextern "C"\(cq binding,
 which have been exported by various versions of the Microsoft\(tm C runtime library.
 .FS
 Symbol names have been identified by running the \fCpexports\fP tool,
-from \fCMinGW.org\fP, on original copies of the respective versions of
+from \fCMinGW.OSDN\fP, on original copies of the respective versions of
 the dynamic link libraries, ignoring symbols which exhibit mangled names
 indicative of C++ binding, together with a few others, (viz.\& \fC$I10_OUTPUT\fP,
 exported by all analysed DLL versions, and the three symbols, \fC@_calloc_crt@8\fP,

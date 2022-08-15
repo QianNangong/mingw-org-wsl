@@ -4,8 +4,8 @@
 # documentation for the symbols which are exported by various versions
 # of MSVCRT.DLL and MSVCRxx.DLL
 #
-# Written by Keith Marshall <keithmarshall@users.sourceforge.net>
-# Copyright (C) 2014, 2015, MinGW.org Project.
+# Written by Keith Marshall <keith@users.osdn.me>
+# Copyright (C) 2014, 2015, 2022, MinGW.OSDN Project
 #
 #
 # This is free software.  Permission is granted to copy, modify and
@@ -18,7 +18,7 @@
 # hope that it may prove useful, but WITHOUT WARRANTY OF ANY KIND; not
 # even an implied WARRANTY OF MERCHANTABILITY, nor of FITNESS FOR ANY
 # PARTICULAR PURPOSE.  Under no circumstances will the author, or the
-# MinGW.org Project, accept liability for any damages, however caused,
+# MinGW.OSDN Project, accept liability for any damages, however caused,
 # arising from the use of this software.
 #
 AC_INIT

@@ -1,3 +1,11 @@
+2022-08-15  Keith Marshall  <keith@users.osdn.me>
+
+	Correct project name references in msvcrt-xref documentation.
+
+	* README.in Makefile.in configure.ac msvcrt-xref.ms msvcrt.def.in:
+	Replace all references to defunct "MinGW.org" project name; refer to
+	"MinGW.OSDN" instead.
+
 2020-01-18  Keith Marshall  <keith@users.osdn.me>
 
 	Correct DLSYM attribute handling in msvcrt-xref.pdf
