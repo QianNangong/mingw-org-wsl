@@ -22,8 +22,9 @@ CryptDecodeObjectEx@32
 CryptEncodeObjectEx@28
 CryptRegisterOIDFunction@20
 CryptUnregisterOIDFunction@12
-CertEnumCertificatesInStore@8
 CertDuplicateStore@4
+CertEnumCRLsInStore@8
+CertEnumCertificatesInStore@8
 CertDuplicateCertificateContext@4
 CertGetNameStringA@24
 CertGetNameStringW@24

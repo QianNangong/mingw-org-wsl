@@ -1,3 +1,12 @@
+2022-08-17  Earnie Boyd  <earnie@users.sourceforge.net>
+
+	Add CertEnumCRLsInStore() references for CRYPT32.DLL.
+
+	(Forward port of unmerged 2012-11-09 WSL-4.0-dev commit).
+
+	* include/wincrypt.h (CertEnumCRLsInStore): Declare prototype.
+	* lib/crypt32.def (CertEnumCRLsInStore@4): Add export reference.
+
 2022-08-15  Keith Marshall  <keith@users.osdn.me>
 
 	Correct project name references in w32api source files.
