@@ -1,3 +1,11 @@
+2022-08-19  Keith Marshall  <keith@users.osdn.me>
+
+	Correct declaration of struct RAWHID.
+
+	* include/winuser.h (RAWHID.bRawData): Represents an array of bytes,
+	not just a single byte; correct its declaratation to identify it as a
+	variable size array.
+
 2022-08-17  Earnie Boyd  <earnie@users.sourceforge.net>
 
 	Add CertEnumCRLsInStore() references for CRYPT32.DLL.
