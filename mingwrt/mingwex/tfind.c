@@ -9,9 +9,8 @@
  * Totally public domain.
  *
  */
-#define _SEARCH_PRIVATE
 #include <stdlib.h>
-#include <search.h>
+#include "tsearch.h"
 
 __CRT_ALIAS void *__tfind
 (const void *key, node_t *const *rootp, int (*compar)(const void *, const void *))
@@ -20,9 +19,9 @@ __CRT_ALIAS void *__tfind
    * return NULL if not found, (or if either "rootp" or "compar" is not
    * a valid pointer).
    *
-   * NOTE: node_t is defined as a structured data type, for internal use
-   * when _SEARCH_PRIVATE is enabled; for public consumption, it becomes
-   * an alias for "void", (assuming _SEARCH_PRIVATE is NOT enabled).
+   * NOTE: node_t is defined as a structured data type, in "tsearch.h",
+   * for private use within this implementation; for public consumption,
+   * it becomes an alias for "void".
    */
   if( (rootp == NULL) || (compar == NULL) )
     return NULL;

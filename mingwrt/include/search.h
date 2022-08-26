@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Danny Smith <dannysmith@users.sourceforge.net>
- * Copyright (C) 2003, 2004, 2007, 2016, 2018, MinGW.org Project.
+ * Copyright (C) 2003, 2004, 2007, 2016, 2018, 2022, MinGW.OSDN Project.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -90,28 +90,6 @@ enum { FIND, ENTER } ACTION;
 
 typedef
 enum { preorder, postorder, endorder, leaf } VISIT;
-
-#ifdef _SEARCH_PRIVATE
-/* For private use within the respective tree function implementations,
- * we define a structured representation of a tree node.
- *
- * FIXME: this really doesn't belong here!  Users should NEVER enable
- * this feature test; they should not be given this opportunity.
- */
-typedef
-struct node
-{ const void	*key;
-  struct node 	*llink, *rlink;
-} node_t;
-
-/* Suppress non-null argument annotations, when building the tsearch(),
- * tfind(), tdelete(), and twalk() implementations, to ensure that GCC
- * does not optimize away internal argument validation checks.
- */
-#undef  __MINGW_ATTRIB_NONNULL
-#define __MINGW_ATTRIB_NONNULL(ARG_INDEX)  /* NOTHING */
-
-#endif	/* _SEARCH_PRIVATE */
 
 __cdecl  void *tdelete
 (const void *__restrict__, void **__restrict__, __search_comparator)

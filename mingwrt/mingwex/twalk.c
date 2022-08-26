@@ -9,9 +9,8 @@
  * Totally public domain.
  *
  */
-#define _SEARCH_PRIVATE
-#include <search.h>
 #include <stdlib.h>
+#include "tsearch.h"
 
 static __MINGW_ATTRIB_NONNULL(1) __MINGW_ATTRIB_NONNULL(2)
 void trecurse (const node_t *, void (*)(const void *, VISIT, int), int);
@@ -44,5 +43,5 @@ void twalk (const void *root, void (*action)(const void *, VISIT, int))
    * in turn, as appropriate in each phase of traversal.
    */
   if( (root != NULL) && (action != NULL) )
-    trecurse (root, action, 0);
+    trecurse ((const node_t *)(root), action, 0);
 }

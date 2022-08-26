@@ -1,3 +1,16 @@
+2022-08-26  Keith Marshall  <keith@users.osdn.me>
+
+	Do not expose private declarations in <search.h>
+
+	* include/search.h [_SEARCH_PRIVATE]: Do not consider.
+	(struct node, node_t, __MINGW_NONNULL): Relocate [re]definitions...
+	* mingwex/tsearch.h: ...to this new (private) header file.
+
+	* mingwex/tdelete.c mingwex/tfind.c mingwex/tsearch.c
+	* mingwex/twalk.c: Include "tsearch.h" in each, in place of
+	<search.h>; (the latter will be indirectly included by the former).
+	(_SEARCH_PRIVATE): Remove definition; it is no longer required.
+
 2022-08-15  Keith Marshall  <keith@users.osdn.me>
 
 	Correct project name references in mingwrt manpages.

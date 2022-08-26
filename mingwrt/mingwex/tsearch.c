@@ -9,9 +9,8 @@
  * Totally public domain.
  *
  */
-#define _SEARCH_PRIVATE
-#include <search.h>
 #include <stdlib.h>
+#include "tsearch.h"
 
 __CRT_ALIAS void *__tsearch
 (const void *key, node_t **rootp, int (*compar)(const void *, const void *))
@@ -19,9 +18,9 @@ __CRT_ALIAS void *__tsearch
   /* Find node identified by "key", within the tree referred to by "rootp",
    * or insert such datum node, if not already present.
    *
-   * NOTE: node_t is defined as a structured data type, for internal use
-   * when _SEARCH_PRIVATE is enabled; for public consumption, it becomes
-   * an alias for "void", (assuming _SEARCH_PRIVATE is NOT enabled).
+   * NOTE: node_t is defined as a structured data type, in "tsearch.h",
+   * for private use within this implementation; for public consumption,
+   * it becomes an alias for "void".
    */
   node_t *q;
 
