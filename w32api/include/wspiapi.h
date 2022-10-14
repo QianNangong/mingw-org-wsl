@@ -605,6 +605,7 @@ int __wspiapi_getaddrinfo_internal
  * only if, no getaddrinfo() implementation is identifiable within
  * the host system's WS2_32.DLL, or WSHIP6.DLL
  */
+static __inline__
 WSAAPI int __wspiapi_getaddrinfo (
   const char *__restrict__ nodenam, const char *__restrict__ servnam,
   const struct addrinfo *__restrict__ hints, struct addrinfo **__restrict__ res

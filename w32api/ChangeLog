@@ -1,3 +1,10 @@
+2022-10-15  Keith Marshall  <keith@users.osdn.me>
+
+	Do not define public symbols in <wspiapi.h>
+
+	* include/wspiapi.h (__wspiapi_getaddrinfo): Declare it as
+	"static __inline__".
+
 2022-08-19  Keith Marshall  <keith@users.osdn.me>
 
 	Correct declaration of struct RAWHID.
