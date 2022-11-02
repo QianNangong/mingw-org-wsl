@@ -1,3 +1,70 @@
+2022-11-02  Keith Marshall  <keith@users.osdn.me>
+
+	Clean up interlocked memory access API declarations.
+
+	* include/ddk/ntddk.h [_DDK_NTDDK_H]: Always defined, implying...
+	[__USE_NTOSKRNL__]: ...this, never defined elsewhere, and always true
+	when defined here; hence, macro is redundant; delete its definition,
+	together with its enclosing (redundant) repeat definition guard.
+
+	* include/winbase.h include/ddk/winddk.h
+	[__USE_NTOSKRNL__, __INTERLOCKED_DECLARED]: Delete references.
+	(InterlockedDecrement, InterlockedIncrement, InterlockedExchange)
+	(InterlockedCompareExchange, InterlockedCompareExchangePointer)
+	(InterlockedExchangePointer, InterlockedExchangeAdd): Factor out;
+	relocate declarations, and implementations as appropriate, to...
+	* include/winnt.h: ...here, per Microsoft's current documentation.
+	(__kernel_api): New local macro; define it conditionally...
+	[_DDK_NTDDK_H defined]: ...to match DDKFASTAPI usage, else...
+	[_DDK_NTDDK_H ! defined]: ...to match WINAPI usage.
+
+	* include/winbase.h (InterlockedPushEntrySList)
+	(InterlockedPopEntrySlist): Declare them, only if...
+	[_DDK_WINDDK_H ! defined]: ...not previously declared...
+	* include/ddk/winddk.h: ...thence.
+
+	* include/winnt.h (_WIN32_INTRINSIC): New macro; define, and...
+	(InterlockedCompareExchangePointer, InterlockedExchangePointer):
+	...use it.
+
+	* include/ddk/winddk.h (InterlockedPushEntrySList)
+	(InterlockedPopEntrySlist): Declare them, only if...
+	[_WINBASE_H ! defined]: ...not previously declared...
+	* include/winbase.h: ...thence.
+
+	* include/ddk/winddk.h (FILE_LIST_DIRECTORY, FILE_READ_DATA)
+	(FILE_ADD_FILE, FILE_WRITE_DATA, FILE_ADD_SUBDIRECTORY)
+	(FILE_APPEND_DATA, FILE_CREATE_PIPE_INSTANCE, FILE_READ_EA)
+	(FILE_WRITE_EA, FILE_EXECUTE, FILE_TRAVERSE, FILE_DELETE_CHILD)
+	(FILE_READ_ATTRIBUTES, FILE_WRITE_ATTRIBUTES, FILE_SHARE_READ)
+	(FILE_SHARE_WRITE, FILE_SHARE_DELETE, FILE_SHARE_VALID_FLAGS)
+	(FILE_ATTRIBUTE_READONLY, FILE_ATTRIBUTE_HIDDEN)
+	(FILE_ATTRIBUTE_SYSTEM, FILE_ATTRIBUTE_DIRECTORY)
+	(FILE_ATTRIBUTE_ARCHIVE, FILE_ATTRIBUTE_DEVICE, FILE_ATTRIBUTE_NORMAL)
+	(FILE_ATTRIBUTE_TEMPORARY, FILE_ATTRIBUTE_SPARSE_FILE)
+	(FILE_ATTRIBUTE_REPARSE_POINT, FILE_ATTRIBUTE_COMPRESSED)
+	(FILE_ATTRIBUTE_OFFLINE, FILE_ATTRIBUTE_NOT_CONTENT_INDEXED)
+	(FILE_ATTRIBUTE_ENCRYPTED, FILE_ATTRIBUTE_VIRTUAL)
+	(FILE_ATTRIBUTE_VALID_FLAGS, FILE_ATTRIBUTE_VALID_SET_FLAGS)
+	(FILE_COPY_STRUCTURED_STORAGE, FILE_STRUCTURED_STORAGE)
+	(FILE_VALID_OPTION_FLAGS, FILE_VALID_PIPE_OPTION_FLAGS)
+	(FILE_VALID_MAILSLOT_OPTION_FLAGS, FILE_VALID_SET_FLAGS)
+	(FILE_SUPERSEDE, FILE_OPEN, FILE_CREATE, FILE_OPEN_IF, FILE_OVERWRITE)
+	(FILE_OVERWRITE_IF, FILE_MAXIMUM_DISPOSITION, FILE_DIRECTORY_FILE)
+	(FILE_WRITE_THROUGH, FILE_SEQUENTIAL_ONLY)
+	(FILE_NO_INTERMEDIATE_BUFFERING, FILE_SYNCHRONOUS_IO_ALERT)
+	(FILE_SYNCHRONOUS_IO_NONALERT, FILE_NON_DIRECTORY_FILE)
+	(FILE_CREATE_TREE_CONNECTION, FILE_COMPLETE_IF_OPLOCKED)
+	(FILE_NO_EA_KNOWLEDGE, FILE_OPEN_FOR_RECOVERY, FILE_RANDOM_ACCESS)
+	(FILE_DELETE_ON_CLOSE, FILE_OPEN_BY_FILE_ID)
+	(FILE_OPEN_FOR_BACKUP_INTENT, FILE_NO_COMPRESSION)
+	(FILE_RESERVE_OPFILTER, FILE_OPEN_REPARSE_POINT, FILE_OPEN_NO_RECALL)
+	(FILE_OPEN_FOR_FREE_SPACE_QUERY, FILE_ALL_ACCESS)
+	(FILE_GENERIC_EXECUTE, FILE_GENERIC_READ, FILE_GENERIC_WRITE)
+	(DUPLICATE_CLOSE_SOURCE, DUPLICATE_SAME_ACCESS)
+	(DUPLICATE_SAME_ATTRIBUTES): Delete redundant definitions; all are...
+	* include/winnt.h: ...already defined thence.
+
 2022-10-15  Keith Marshall  <keith@users.osdn.me>
 
 	Do not define public symbols in <wspiapi.h>

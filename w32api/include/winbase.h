@@ -2099,41 +2099,52 @@ WINBASEAPI BOOL WINAPI InitializeSecurityDescriptor
 (PSECURITY_DESCRIPTOR, DWORD);
 WINBASEAPI BOOL WINAPI InitializeSid (PSID, PSID_IDENTIFIER_AUTHORITY, BYTE);
 
-#if !(__USE_NTOSKRNL__)
-/* CAREFUL: These are exported from ntoskrnl.exe and declared in winddk.h
-   as __fastcall functions, but are  exported from kernel32.dll as __stdcall */
-#if (_WIN32_WINNT >= 0x0501)
-WINBASEAPI VOID WINAPI InitializeSListHead (PSLIST_HEADER);
-#endif
-
-#ifndef __INTERLOCKED_DECLARED
-/* FIXME: Is this another invitation for inconsistent definition?
- * Where else is this declared?
+/* Formerly declared here, but now documented by Microsoft as being
+ * declared in <winnt.h>, (which has been automatically included by
+ * the time we get here), declarations of the following interlocked
+ * memory access functions:
+ *
+ *   long InterlockedDecrement (long volatile *);
+ *   long InterlockedIncrement (long volatile *);
+ *
+ *   long InterlockedExchange (long volatile *, long);
+ *   long InterlockedCompareExchange (long volatile *, long, long);
+ *   long InterlockedExchangeAdd (long volatile *, long);
+ *
+ * together with the associated intrinsic implementations of:
+ *
+ *   void *InterlockedCompareExchangePointer (void *volatile *, void *, void *);
+ *   void *InterlockedExchangePointer (void *volatile *, void *);
+ *
+ * have been relocated accordingly.
  */
-#define __INTERLOCKED_DECLARED
-LONG WINAPI InterlockedCompareExchange (LONG volatile *, LONG, LONG);
-/* PVOID WINAPI InterlockedCompareExchangePointer (PVOID *, PVOID, PVOID); */
-#define InterlockedCompareExchangePointer(d, e, c)  \
-  (PVOID)InterlockedCompareExchange((LONG volatile *)(d),(LONG)(e),(LONG)(c))
-LONG WINAPI InterlockedDecrement (LONG volatile *);
-LONG WINAPI InterlockedExchange (LONG volatile *, LONG);
-/* PVOID WINAPI InterlockedExchangePointer (PVOID *, PVOID); */
-#define InterlockedExchangePointer(t, v)  \
-  (PVOID)InterlockedExchange((LONG volatile *)(t),(LONG)(v))
-LONG WINAPI InterlockedExchangeAdd (LONG volatile *, LONG);
+#if _WIN32_WINNT >= _WIN32_WINNT_WINXP
+/* FIXME: Microsoft's current documentation says that the following
+ * should be declared in <interlockedapi.h>, (which MinGW.OSDN doesn't
+ * provide at present); leave them here for the time being, but maybe
+ * consider a future relocation.
+ */
+WINBASEAPI VOID WINAPI InitializeSListHead (PSLIST_HEADER);
+WINBASEAPI PSLIST_ENTRY WINAPI InterlockedFlushSList (PSLIST_HEADER);
 
-#if (_WIN32_WINNT >= 0x0501)
-PSLIST_ENTRY WINAPI InterlockedFlushSList (PSLIST_HEADER);
-#endif
+#ifndef _DDK_WINDDK_H
+/*
+ * ** CAUTION **
+ *
+ * This pair is exported by both ntoskrnl.exe and kernel32.exe, but with
+ * incompatible calling conventions; intent to link with ntoskrnl.exe may
+ * have been indicated already, by prior inclusion of <ddk/winddk.h>, in
+ * which case these will have been declared already, with the appropriate
+ * __fastcall semantics, but if not, declare them here, with the choice
+ * between __stdcall and __fastcall determined appropriately by prior
+ * definition of __kernel_api, inherited from <winnt.h>, (which has
+ * been included previously).
+ */
+PSLIST_ENTRY __kernel_api InterlockedPushEntrySList (PSLIST_HEADER, PSLIST_ENTRY);
+PSLIST_ENTRY __kernel_api InterlockedPopEntrySList (PSLIST_HEADER);
 
-LONG WINAPI InterlockedIncrement (LONG volatile *);
-
-#if (_WIN32_WINNT >= 0x0501)
-PSLIST_ENTRY WINAPI InterlockedPopEntrySList (PSLIST_HEADER);
-PSLIST_ENTRY WINAPI InterlockedPushEntrySList (PSLIST_HEADER, PSLIST_ENTRY);
-#endif
-#endif /* __INTERLOCKED_DECLARED */
-#endif /*  __USE_NTOSKRNL__ */
+#endif	/* !_DDK_WINDDK_H */
+#endif	/* _WIN32_WINNT >= _WIN32_WINNT_WINXP */
 
 WINBASEAPI BOOL WINAPI IsBadCodePtr (FARPROC);
 WINBASEAPI BOOL WINAPI IsBadHugeReadPtr (PCVOID, UINT);

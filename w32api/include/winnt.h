@@ -4333,6 +4333,58 @@ static FORCEINLINE void MemoryBarrier (void)
 #undef __mingw_thread_fence
 #undef __mingw_fence_insn__
 
+#ifndef _DDK_NTDDK_H
+/* Several of the interlocked memory access API functions, which are
+ * declared below, are exported by both kernel32.dll, and ntoskrnl.exe,
+ * but with different (incompatible) calling conventions in each case.
+ *
+ * In the case where _DDK_NTDDL_H is NOT defined, it is assumed that
+ * the intent is to link with kernel32.dll, and the __stdcall calling
+ * convention is applicable...
+ */
+#define __kernel_api __stdcall
+#else
+/* ...whereas, when the _DDK_NTDDK_H guard IS defined, (as it will
+ * be when <ddk/ntddk.h> has been included beforehand), it is assumed
+ * that the intent is to build a Windows device driver, which will be
+ * linked with ntoskrnl.exe, and the __fastcall calling convention
+ * becomes applicable.
+ */
+#define __kernel_api __fastcall
+#endif
+/* Formerly declared within <winbase.h>, and relocated here, to
+ * conform with Microsoft's current documentation, the following,
+ * conforming to the __stdcall calling convention, are exported by
+ * kernel32.dll; alternative implementations of each, but conforming
+ * to the __fastcall calling convention, are exported by ntoskrnl.exe,
+ * so these are declared with the appropriate __kernel_api calling
+ * convention, as determined immediately above.
+ */
+LONG __kernel_api InterlockedDecrement (LONG volatile *);
+LONG __kernel_api InterlockedIncrement (LONG volatile *);
+
+LONG __kernel_api InterlockedExchange (LONG volatile *, LONG);
+LONG __kernel_api InterlockedCompareExchange (LONG volatile *, LONG, LONG);
+LONG __kernel_api InterlockedExchangeAdd (LONG volatile *, LONG);
+
+/* The interlocked pointer exchange functions are ALWAYS implemented
+ * as intrinsics, in terms of corresponding long int exchange functions.
+ */
+#define _WIN32_INTRINSIC  extern __inline__ __attribute__((gnu_inline))
+
+_WIN32_INTRINSIC
+PVOID InterlockedCompareExchangePointer (PVOID volatile *D, PVOID X, PVOID C)
+{ return (PVOID)(
+    InterlockedCompareExchange ((LONG volatile *)(D), (LONG)(X), (LONG)(C))
+  );
+}
+_WIN32_INTRINSIC
+PVOID InterlockedExchangePointer (PVOID volatile *D, PVOID X)
+{ return (PVOID)(
+    InterlockedExchange ((LONG volatile *)(D), (LONG)(X))
+  );
+}
+
 _END_C_DECLS
 
 #endif	/* ! RC_INVOKED */

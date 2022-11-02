@@ -5,7 +5,6 @@
  *  DBG               -  Debugging enabled/disabled (0/1)
  *  POOL_TAGGING      -  Enable pool tagging
  *  _X86_             -  X86 environment
- *  __USE_NTOSKRNL__  -  Use ntoskrnl.exe instead of kernel32.dll
  *
  * $Id$
  *
@@ -34,12 +33,8 @@
  *
  */
 #ifndef _DDK_NTDDK_H
-#define _DDK_NTDDK_H
 #pragma GCC system_header
-
-#ifndef __USE_NTOSKRNL__
-#define __USE_NTOSKRNL__ 1
-#endif
+#define _DDK_NTDDK_H
 
 #include <stdarg.h>
 #include <windef.h>

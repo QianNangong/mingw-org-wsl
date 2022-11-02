@@ -360,100 +360,6 @@ typedef struct _DRIVE_LAYOUT_INFORMATION_EX *PDRIVE_LAYOUT_INFORMATION_EX;
 #define FILE_EXISTS                       0x00000004
 #define FILE_DOES_NOT_EXIST               0x00000005
 
-#if 1
-/* FIXME: also in winnt.h; hence, already defined?
- */
-#define FILE_LIST_DIRECTORY               0x00000001
-#define FILE_READ_DATA                    0x00000001
-#define FILE_ADD_FILE                     0x00000002
-#define FILE_WRITE_DATA                   0x00000002
-#define FILE_ADD_SUBDIRECTORY             0x00000004
-#define FILE_APPEND_DATA                  0x00000004
-#define FILE_CREATE_PIPE_INSTANCE         0x00000004
-#define FILE_READ_EA                      0x00000008
-#define FILE_WRITE_EA                     0x00000010
-#define FILE_EXECUTE                      0x00000020
-#define FILE_TRAVERSE                     0x00000020
-#define FILE_DELETE_CHILD                 0x00000040
-#define FILE_READ_ATTRIBUTES              0x00000080
-#define FILE_WRITE_ATTRIBUTES             0x00000100
-
-#define FILE_SHARE_READ                   0x00000001
-#define FILE_SHARE_WRITE                  0x00000002
-#define FILE_SHARE_DELETE                 0x00000004
-#define FILE_SHARE_VALID_FLAGS            0x00000007
-
-#define FILE_ATTRIBUTE_READONLY           0x00000001
-#define FILE_ATTRIBUTE_HIDDEN             0x00000002
-#define FILE_ATTRIBUTE_SYSTEM             0x00000004
-#define FILE_ATTRIBUTE_DIRECTORY          0x00000010
-#define FILE_ATTRIBUTE_ARCHIVE            0x00000020
-#define FILE_ATTRIBUTE_DEVICE             0x00000040
-#define FILE_ATTRIBUTE_NORMAL             0x00000080
-#define FILE_ATTRIBUTE_TEMPORARY          0x00000100
-#define FILE_ATTRIBUTE_SPARSE_FILE        0x00000200
-#define FILE_ATTRIBUTE_REPARSE_POINT      0x00000400
-#define FILE_ATTRIBUTE_COMPRESSED         0x00000800
-#define FILE_ATTRIBUTE_OFFLINE            0x00001000
-#define FILE_ATTRIBUTE_NOT_CONTENT_INDEXED 0x00002000
-#define FILE_ATTRIBUTE_ENCRYPTED          0x00004000
-#define FILE_ATTRIBUTE_VIRTUAL            0x00010000
-
-#define FILE_ATTRIBUTE_VALID_FLAGS        0x00017fb7
-#define FILE_ATTRIBUTE_VALID_SET_FLAGS    0x000031a7
-
-#define FILE_COPY_STRUCTURED_STORAGE      0x00000041
-#define FILE_STRUCTURED_STORAGE           0x00000441
-
-#define FILE_VALID_OPTION_FLAGS           0x00ffffff
-#define FILE_VALID_PIPE_OPTION_FLAGS      0x00000032
-#define FILE_VALID_MAILSLOT_OPTION_FLAGS  0x00000032
-#define FILE_VALID_SET_FLAGS              0x00000036
-
-#define FILE_SUPERSEDE                    0x00000000
-#define FILE_OPEN                         0x00000001
-#define FILE_CREATE                       0x00000002
-#define FILE_OPEN_IF                      0x00000003
-#define FILE_OVERWRITE                    0x00000004
-#define FILE_OVERWRITE_IF                 0x00000005
-#define FILE_MAXIMUM_DISPOSITION          0x00000005
-
-#define FILE_DIRECTORY_FILE               0x00000001
-#define FILE_WRITE_THROUGH                0x00000002
-#define FILE_SEQUENTIAL_ONLY              0x00000004
-#define FILE_NO_INTERMEDIATE_BUFFERING    0x00000008
-#define FILE_SYNCHRONOUS_IO_ALERT         0x00000010
-#define FILE_SYNCHRONOUS_IO_NONALERT      0x00000020
-#define FILE_NON_DIRECTORY_FILE           0x00000040
-#define FILE_CREATE_TREE_CONNECTION       0x00000080
-#define FILE_COMPLETE_IF_OPLOCKED         0x00000100
-#define FILE_NO_EA_KNOWLEDGE              0x00000200
-#define FILE_OPEN_FOR_RECOVERY            0x00000400
-#define FILE_RANDOM_ACCESS                0x00000800
-#define FILE_DELETE_ON_CLOSE              0x00001000
-#define FILE_OPEN_BY_FILE_ID              0x00002000
-#define FILE_OPEN_FOR_BACKUP_INTENT       0x00004000
-#define FILE_NO_COMPRESSION               0x00008000
-#define FILE_RESERVE_OPFILTER             0x00100000
-#define FILE_OPEN_REPARSE_POINT           0x00200000
-#define FILE_OPEN_NO_RECALL               0x00400000
-#define FILE_OPEN_FOR_FREE_SPACE_QUERY    0x00800000
-
-#define FILE_ALL_ACCESS  (STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x1FF)
-
-#define FILE_GENERIC_EXECUTE \
- (STANDARD_RIGHTS_EXECUTE | FILE_READ_ATTRIBUTES | FILE_EXECUTE | SYNCHRONIZE)
-
-#define FILE_GENERIC_READ \
- (STANDARD_RIGHTS_READ | FILE_READ_DATA | FILE_READ_ATTRIBUTES \
-   | FILE_READ_EA | SYNCHRONIZE)
-
-#define FILE_GENERIC_WRITE \
- (STANDARD_RIGHTS_WRITE | FILE_WRITE_DATA | FILE_WRITE_ATTRIBUTES \
-   | FILE_WRITE_EA | FILE_APPEND_DATA | SYNCHRONIZE)
-
-#endif  /* winnt.h */
-
 #define DIRECTORY_QUERY (0x0001)
 #define DIRECTORY_TRAVERSE (0x0002)
 #define DIRECTORY_CREATE_OBJECT (0x0004)
@@ -945,15 +851,6 @@ typedef VOID DDKAPI
  */
 #define SYMBOLIC_LINK_QUERY               0x0001
 #define SYMBOLIC_LINK_ALL_ACCESS          (STANDARD_RIGHTS_REQUIRED | 0x1)
-
-#if 1
-/* FIXME: also in winnt.h; hence already defined?
- */
-#define DUPLICATE_CLOSE_SOURCE            0x00000001
-#define DUPLICATE_SAME_ACCESS             0x00000002
-#define DUPLICATE_SAME_ATTRIBUTES         0x00000004
-
-#endif  /* winnt.h */
 
 typedef
 struct _OBJECT_NAME_INFORMATION
@@ -4062,56 +3959,38 @@ KeGetCurrentIrql( VOID );
   ((ULONG)KeGetCurrentKPCR()->Number)
 
 
-#if  __USE_NTOSKRNL__
-/* CAREFUL: These are exported from ntoskrnl.exe as __fastcall functions,
-   but are also exported from kernel32.dll and declared in winbase.h as
-   __stdcall */
-#if !defined(__INTERLOCKED_DECLARED)
-#define __INTERLOCKED_DECLARED
-
-NTOSAPI LONG DDKFASTAPI
-InterlockedIncrement( /*IN*/ LONG VOLATILE *Addend );
-
-NTOSAPI LONG DDKFASTAPI
-InterlockedDecrement( /*IN*/ LONG VOLATILE *Addend );
-
-NTOSAPI LONG DDKFASTAPI
-InterlockedCompareExchange(
-  /*IN OUT*/ PLONG  VOLATILE  Destination,
-  /*IN*/ LONG  Exchange,
-  /*IN*/ LONG  Comparand
-);
-
-NTOSAPI LONG DDKFASTAPI
-InterlockedExchange(
-  /*IN OUT*/ PLONG  VOLATILE  Target,
-  /*IN*/ LONG Value
-);
-
-NTOSAPI LONG DDKFASTAPI
-InterlockedExchangeAdd(
-  /*IN OUT*/ PLONG VOLATILE  Addend,
-  /*IN*/ LONG  Value
-);
-
-/* PVOID
- * InterlockedExchangePointer(
- * IN OUT PVOID VOLATILE  *Target,
- * IN PVOID  Value)
+/* Formerly declared here, on the assumption that we are building
+ * a Windows device driver, and thus exported by ntoskrnl.exe, with
+ * __fastcall calling convention, (as opposed to exports of the same
+ * functions from kernel32.dll, whence the __stdcall convention is
+ * applicable), the following:
+ *
+ *   long InterlockedDecrement (long volatile *);
+ *   long InterlockedIncrement (long volatile *);
+ *
+ *   long InterlockedExchange (long volatile *, long);
+ *   long InterlockedCompareExchange (long volatile *, long, long);
+ *   long InterlockedExchangeAdd (long volatile *, long);
+ *
+ * together with intrinsic implementations of:
+ *
+ *   void *InterlockedCompareExchangePointer (void *volatile *, void *, void *);
+ *   void *InterlockedExchangePointer (void *volatile *, void *);
+ *
+ * are now declared in <winnt.h>, which is guaranteed to have been
+ * included already, with logic to determine the appropriate calling
+ * convention; thus, we may simply adopt the appropriately qualified
+ * <winnt.h> declarations, without repetition here.
+ *
+ * Similarly, (but without the guarantee of prior inclusion),
+ * introduced by WinXP...
  */
-#define InterlockedExchangePointer(Target, Value) \
-  ((PVOID) InterlockedExchange((PLONG) Target, (LONG) Value))
-
-/* PVOID InterlockedCompareExchangePointer(
- *   IN OUT PVOID  *Destination,
- *   IN PVOID  Exchange,
- *   IN PVOID  Comparand
- * )
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP) && ! defined _WINBASE_H
+/* ...the following MAY have been declared already, if <winbase.h>
+ * has been included before we get to here; if it has, we simply adopt
+ * its declarations, but if it has not, we provide declarations here,
+ * (assuming use of the __fastcall exports from ntoskrnl.exe).
  */
-#define InterlockedCompareExchangePointer(Destination, Exchange, Comparand) \
- ((PVOID) InterlockedCompareExchange((PLONG) Destination, (LONG) Exchange, (LONG) Comparand))
-
-#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
 PSLIST_ENTRY DDKFASTAPI
 InterlockedPopEntrySList( /*IN*/ PSLIST_HEADER ListHead );
 
@@ -4120,10 +3999,7 @@ InterlockedPushEntrySList(
   /*IN*/ PSLIST_HEADER  ListHead,
   /*IN*/ PSLIST_ENTRY  ListEntry
 );
-#endif /* _WIN32_WINNT >= _WIN32_WINNT_WINXP */
-
-#endif /* !__INTERLOCKED_DECLARED */
-#endif /*  __USE_NTOSKRNL__ */
+#endif	/* (_WIN32_WINNT >= _WIN32_WINNT_WINXP) && !_WINBASE_H */
 
 NTOSAPI VOID DDKFASTAPI
 KefAcquireSpinLockAtDpcLevel( /*IN*/ PKSPIN_LOCK SpinLock );
@@ -4138,7 +4014,7 @@ KefReleaseSpinLockFromDpcLevel( /*IN*/ PKSPIN_LOCK SpinLock );
 
 #define KeGetDcacheFillSize() 1L
 
-#endif /* _X86_ */
+#endif	/* _X86_ */
 
 /* Utility functions
  */
@@ -4218,7 +4094,7 @@ RtlAssert(
 #define RTL_SOFT_VERIFY(exp) RTL_SOFT_ASSERT(exp)
 #define RTL_SOFT_VERIFYMSG(msg, exp) RTL_SOFT_ASSERTMSG(msg, exp)
 
-#else /* !DBG */
+#else	/* !DBG */
 
 #define ASSERT(exp) ((VOID) 0)
 #define ASSERTMSG(msg, exp) ((VOID) 0)
@@ -4232,7 +4108,7 @@ RtlAssert(
 #define RTL_SOFT_VERIFY(exp) ((exp) ? TRUE : FALSE)
 #define RTL_SOFT_VERIFYMSG(msg, exp) ((exp) ? TRUE : FALSE)
 
-#endif /* DBG */
+#endif	/* DBG */
 
 
 /* Driver support routines
@@ -5072,13 +4948,13 @@ ExInterlockedPushEntrySList(
   /*IN*/ PKSPIN_LOCK  Lock
 );
 
-#if (__USE_NTOSKRNL__) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
+#if _WIN32_WINNT >= _WIN32_WINNT_WINXP
 #define ExInterlockedPopEntrySList(_ListHead, _Lock) \
   InterlockedPopEntrySList(_ListHead)
 
 #define ExInterlockedPushEntrySList(_ListHead, _ListEntry, _Lock) \
   InterlockedPushEntrySList(_ListHead, _ListEntry)
-#endif /*  __USE_NTOSKRNL__ */
+#endif	/* _WIN32_WINNT >= _WIN32_WINNT_WINXP */
 
 #define ExQueryDepthSList(ListHead) QueryDepthSList(ListHead)
 
@@ -5113,7 +4989,7 @@ ExFreeToNPagedLookasideList(
   }
 }
 
-#if (__USE_NTOSKRNL__) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
+#if _WIN32_WINNT >= _WIN32_WINNT_WINXP
 
 static __inline__ PVOID
 ExAllocateFromPagedLookasideList(
@@ -5145,7 +5021,7 @@ ExFreeToPagedLookasideList(
   }
 }
 
-#else /* (__USE_NTOSKRNL__) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) */
+#else	/* _WIN32_WINNT >= _WIN32_WINNT_WINXP */
 
 NTOSAPI PVOID DDKAPI
 ExAllocateFromPagedLookasideList( /*IN*/ PPAGED_LOOKASIDE_LIST Lookaside );
@@ -5156,7 +5032,7 @@ ExFreeToPagedLookasideList(
   /*IN*/ PVOID  Entry
 );
 
-#endif /* (__USE_NTOSKRNL__) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) */
+#endif	/* _WIN32_WINNT >= _WIN32_WINNT_WINXP */
 
 NTOSAPI PVOID DDKAPI
 ExAllocatePoolWithQuotaTag(
@@ -5177,7 +5053,7 @@ ExAllocatePoolWithTag(
 #define ExAllocatePoolWithQuota(p,n) ExAllocatePoolWithQuotaTag(p,n,' kdD')
 #define ExAllocatePool(p,n) ExAllocatePoolWithTag(p,n,' kdD')
 
-#else /* !POOL_TAGGING */
+#else	/* !POOL_TAGGING */
 
 NTOSAPI PVOID DDKAPI
 ExAllocatePool( /*IN*/ POOL_TYPE PoolType, /*IN*/ SIZE_T NumberOfBytes );
@@ -5185,7 +5061,7 @@ ExAllocatePool( /*IN*/ POOL_TYPE PoolType, /*IN*/ SIZE_T NumberOfBytes );
 NTOSAPI PVOID DDKAPI
 ExAllocatePoolWithQuota( /*IN*/ POOL_TYPE PoolType, /*IN*/ SIZE_T NumberOfBytes );
 
-#endif /* POOL_TAGGING */
+#endif	/* POOL_TAGGING */
 
 NTOSAPI PVOID DDKAPI
 ExAllocatePoolWithTagPriority(
@@ -8328,14 +8204,14 @@ DbgSetDebugFilterState(
 #define KdBreakPoint() DbgBreakPoint()
 #define KdBreakPointWithStatus(s) DbgBreakPointWithStatus(s)
 
-#else /* !DBG */
+#else	/* !DBG */
 
 #define KdPrint(_x_)
 #define KdPrintEx(_x_)
 #define KdBreakPoint()
 #define KdBreakPointWithStatus(s)
 
-#endif /* !DBG */
+#endif	/* !DBG */
 
 extern NTOSAPI PBOOLEAN KdDebuggerNotPresent;
 extern NTOSAPI PBOOLEAN KdDebuggerEnabled;
