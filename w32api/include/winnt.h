@@ -4385,6 +4385,86 @@ PVOID InterlockedExchangePointer (PVOID volatile *D, PVOID X)
   );
 }
 
+#ifdef __ATOMIC_ACQ_REL /* supported by GCC */
+/* This implies a sufficiently recent version of GCC to allow us to
+ * support implementations of Microsoft's interlocked memory access
+ * intrinsic functions, in terms of GCC's atomic operations built-in
+ * functions; the appropriate Microsoft-to-GCC mapping of function
+ * names, together with associated implementations, is specified by
+ * inclusion of...
+ */
+#include "intrin.h"
+
+/* Irrespective of Microsoft's documentation, of earliest supporting
+ * Windows versions, the intrinsic function implementations provided
+ * within "intrin.h" depend, not on the host's version of MS-Windows,
+ * but on the built-in support of the particular version of GCC which
+ * is used to compile the code; thus, we may safely define each of
+ * the following, without regard to Windows version...
+ */
+#define InterlockedAnd			_InterlockedAnd
+#define InterlockedAnd16		_InterlockedAnd16
+#define InterlockedAnd64		_InterlockedAnd64
+#define InterlockedAnd8 		_InterlockedAnd8
+
+#define InterlockedOr			_InterlockedOr
+#define InterlockedOr16 		_InterlockedOr16
+#define InterlockedOr64 		_InterlockedOr64
+#define InterlockedOr8			_InterlockedOr8
+
+#define InterlockedXor			_InterlockedXor
+#define InterlockedXor16		_InterlockedXor16
+#define InterlockedXor64		_InterlockedXor64
+#define InterlockedXor8 		_InterlockedXor8
+
+#define InterlockedDecrement		_InterlockedDecrement
+#define InterlockedDecrement16		_InterlockedDecrement16
+#define InterlockedDecrement64		_InterlockedDecrement64
+#define InterlockedDecrement8		_InterlockedDecrement8
+
+#define InterlockedIncrement		_InterlockedIncrement
+#define InterlockedIncrement16		_InterlockedIncrement16
+#define InterlockedIncrement64		_InterlockedIncrement64
+#define InterlockedIncrement8		_InterlockedIncrement8
+
+#define InterlockedExchange		_InterlockedExchange
+#define InterlockedExchange16		_InterlockedExchange16
+#define InterlockedExchange64		_InterlockedExchange64
+#define InterlockedExchange8		_InterlockedExchange8
+
+#define InterlockedCompareExchange	_InterlockedCompareExchange
+#define InterlockedCompareExchange16	_InterlockedCompareExchange16
+#define InterlockedCompareExchange64	_InterlockedCompareExchange64
+#define InterlockedCompareExchange8	_InterlockedCompareExchange8
+
+#define InterlockedExchangeAdd		_InterlockedExchangeAdd
+#define InterlockedExchangeAdd16	_InterlockedExchangeAdd16
+#define InterlockedExchangeAdd64	_InterlockedExchangeAdd64
+#define InterlockedExchangeAdd8 	_InterlockedExchangeAdd8
+
+#define InterlockedAdd			_InterlockedAdd
+#define InterlockedAdd64		_InterlockedAdd64
+
+/* The following reimplementations of the interlocked pointer exchange
+ * intrinsics allows them to take full advantage of their corresponding
+ * long int exchange intrinsics.
+ */
+_WIN32_INTRINSIC
+#define InterlockedCompareExchangePointer _InterlockedCompareExchangePointer
+PVOID InterlockedCompareExchangePointer (PVOID volatile *D, PVOID X, PVOID C)
+{ return (PVOID)(
+    InterlockedCompareExchange ((LONG volatile *)(D), (LONG)(X), (LONG)(C))
+  );
+}
+_WIN32_INTRINSIC
+#define InterlockedExchangePointer _InterlockedExchangePointer
+PVOID InterlockedExchangePointer (PVOID volatile *D, PVOID X)
+{ return (PVOID)(
+    InterlockedExchange ((LONG volatile *)(D), (LONG)(X))
+  );
+}
+#endif	/* __ATOMIC_ACQ_REL supported by GCC */
+
 _END_C_DECLS
 
 #endif	/* ! RC_INVOKED */

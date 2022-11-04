@@ -1,3 +1,47 @@
+2022-11-04  Keith Marshall  <keith@users.osdn.me>
+
+	Implement interlocked memory access API intrinsic functions.
+
+	* include/intrin.h: New file.
+	[__ATOMIC_ACQ_REL defined]: It declares...
+	(_InterlockedDecrement, _InterlockedDecrement8)
+	(_InterlockedDecrement16, _InterlockedDecrement64)
+	(_InterlockedIncrement, _InterlockedIncrement8)
+	(_InterlockedIncrement16, _InterlockedIncrement64)
+	(_InterlockedExchange, _InterlockedExchange8)
+	(_InterlockedExchange16, _InterlockedExchange64)
+	(_InterlockedCompareExchange, _InterlockedCompareExchange8)
+	(_InterlockedCompareExchange16, _InterlockedCompareExchange64)
+	(_InterlockedExchangeAdd, _InterlockedExchangeAdd8)
+	(_InterlockedExchangeAdd16, _InterlockedExchangeAdd64)
+	(_InterlockedAdd, _InterlockedAdd64, _InterlockedAnd)
+	(_InterlockedAnd8, _InterlockedAnd16, _InterlockedAnd64)
+	(_InterlockedOr, _InterlockedOr8, _InterlockedOr16, _InterlockedOr64)
+	(_InterlockedXor, _InterlockedXor8, _InterlockedXor16)
+	(_InterlockedXor64): ...each of these functions, then defines an
+	intrinsic implementation of each, by mapping each to an equivalent
+	GCC __atomic built-in function.
+
+	* include/winnt.h [__ATOMIC_AC_REL defined]: Include "intrin.h",
+	whence derive and define an appropriate mapping for...
+	(InterlockedDecrement, InterlockedDecrement8)
+	(InterlockedDecrement16, InterlockedDecrement64)
+	(InterlockedIncrement, InterlockedIncrement8)
+	(InterlockedIncrement16, InterlockedIncrement64)
+	(InterlockedExchange, InterlockedExchange8)
+	(InterlockedExchange16, InterlockedExchange64)
+	(InterlockedCompareExchange, InterlockedCompareExchange8)
+	(InterlockedCompareExchange16, InterlockedCompareExchange64)
+	(InterlockedCompareExchangePointer, InterlockedExchangePointer)
+	(InterlockedExchangeAdd, InterlockedExchangeAdd8)
+	(InterlockedExchangeAdd16, InterlockedExchangeAdd64)
+	(InterlockedAdd, InterlockedAdd64, InterlockedAnd)
+	(InterlockedAnd8, InterlockedAnd16, InterlockedAnd64)
+	(InterlockedOr, InterlockedOr8, InterlockedOr16, InterlockedOr64)
+	(InterlockedXor, InterlockedXor8, InterlockedXor16)
+	(InterlockedXor64): ...each of these functions, in terms of its
+	equivalent intrinsic implementation.
+
 2022-11-02  Keith Marshall  <keith@users.osdn.me>
 
 	Clean up interlocked memory access API declarations.
