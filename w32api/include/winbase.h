@@ -2180,7 +2180,6 @@ WINBASEAPI DWORD WINAPI LoadModule (LPCSTR, PVOID);
 WINBASEAPI HGLOBAL WINAPI LoadResource (HINSTANCE, HRSRC);
 WINBASEAPI HLOCAL WINAPI LocalAlloc (UINT, SIZE_T);
 WINBASEAPI SIZE_T WINAPI LocalCompact (UINT); /* Obsolete: Has no effect. */
-WINBASEAPI HLOCAL LocalDiscard (HLOCAL);
 WINBASEAPI BOOL WINAPI LocalFileTimeToFileTime (CONST FILETIME *, LPFILETIME);
 WINBASEAPI UINT WINAPI LocalFlags (HLOCAL); /* Obsolete: Has no effect. */
 WINBASEAPI HLOCAL WINAPI LocalFree (HLOCAL);
@@ -2194,6 +2193,14 @@ WINBASEAPI BOOL WINAPI LockFile (HANDLE, DWORD, DWORD, DWORD, DWORD);
 WINBASEAPI BOOL WINAPI LockFileEx
 (HANDLE, DWORD, DWORD, DWORD, DWORD, LPOVERLAPPED);
 WINBASEAPI PVOID WINAPI LockResource (HGLOBAL);
+
+/* Microsoft's documentation suggests that LocalDiscard()
+ * should be defined as a macro; we prefer this intrinsic
+ * definition, since it has the effect of a macro, but it
+ * offers an added type checking benefit.
+ */
+_WIN32_INTRINSIC HLOCAL LocalDiscard (HLOCAL addr)
+{ return LocalReAlloc (addr, 0, LMEM_MOVEABLE); }
 
 #define LockSegment(w)  GlobalFix((HANDLE)(w)) /* Obsolete: Has no effect. */
 
