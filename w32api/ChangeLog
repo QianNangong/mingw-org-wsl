@@ -1,5 +1,16 @@
 2023-06-21  Keith Marshall  <keith@users.osdn.me>
 
+	Make <winber.h> header effectively self-contained.
+
+	* include/winber.h: Tidy layout; assert copyright.
+	(GCC system_header) [__GNUC__ >= 3]: Remove prerequisite condition.
+	(windef.h): Include this, to support stand-alone use.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them.
+	(pshpack4.h, poppack.h): Do not include; use...
+	(#pragma pack): ...this, directly.
+
+2023-06-21  Keith Marshall  <keith@users.osdn.me>
+
 	Update header file list for integrity testing.
 
 	* tests/headers.at (intrin.h, legacy.h)
