@@ -90,6 +90,7 @@ il21dec.h dnl
 imagehlp.h dnl
 imm.h dnl
 initguid.h dnl
+intrin.h dnl
 intshcut.h dnl
 ipexport.h dnl
 iphlpapi.h dnl
@@ -104,6 +105,7 @@ isguids.h dnl
 ks.h dnl
 ksmedia.h dnl
 largeint.h dnl
+legacy.h dnl
 lm.h dnl
 lmaccess.h dnl
 lmalert.h dnl
@@ -230,6 +232,7 @@ unknwn.h dnl
 userenv.h dnl
 usp10.h dnl
 uxtheme.h dnl
+versionhelpers.h dnl
 vfw.h dnl
 vidcap.h dnl
 vmr9.h dnl
