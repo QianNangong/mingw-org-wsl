@@ -1,3 +1,19 @@
+2023-06-23  Keith Marshall  <keith@users.osdn.me>
+
+	Make <windns.h> header effectively self-contained.
+
+	* include/windns.h: Tidy layout; assert copyright.
+	(GCC system_header) [__GNUC__ >= 3]: Remove prerequisite condition.
+	(windef.h): Include this, to support stand-alone use.
+	(_BEGIN_C_DECLS, _END_C_DECLS): Use them.
+	[! RC_INVOKE]: Incorrectly specified conditional; should be...
+	[! RC_INVOKED]: ...this; correct it.
+	[UNICODE vs. ! UNICODE] (__AW_EXTENDED__): Use it to declare...
+	(DnsAcquireContextHandle, DnsModifyRecordsInSet, DnsNameCompare)
+	(DnsQuery, DnsValidateName): ...these.
+	[UNICODE vs. ! UNICODE] (__AW_SUFFIXED__): Use it to declare...
+	(DnsReplaceRecordSet): ...this.
+
 2023-06-21  Keith Marshall  <keith@users.osdn.me>
 
 	Make <winber.h> header effectively self-contained.
