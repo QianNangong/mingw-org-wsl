@@ -6,7 +6,7 @@
  * $Id$
  *
  * Written by Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
- * Copyright (C) 1997-2001, 2003-2004, 2007-2008, 2016, 2022,
+ * Copyright (C) 1997-2001, 2003-2004, 2007-2008, 2016, 2022, 2023,
  *  MinGW.OSDN Project
  *
  *
@@ -196,6 +196,7 @@ intptr_t execlpe (const char *, const char *,...);
  * the following "execv" function declarations; these will precipitate
  * testsuite failures, so suppress them.
  */
+# pragma GCC diagnostic push
 # if __GNUC__ >= 9 || defined __cplusplus
   /* Prior to GCC-9, this limitation was apparent in the C++ compiler
    * only; it became apparent in the C compiler, from GCC-9.
@@ -213,10 +214,10 @@ intptr_t execve (const char *, const char * const *, const char * const *);
 _CRTIMP __cdecl __MINGW_NOTHROW
 intptr_t execvp (const char *, const char * const *);
 
-#if defined __cplusplus && __IN_MINGWRT_TESTSUITE__ && __GNUC__ >= 7
+#if __IN_MINGWRT_TESTSUITE__ && __GNUC__ >= 7
 /* Re-enable previously suppressed "-Wbuiltin-declaration-mismatch" warnings.
  */
-# pragma GCC diagnostic warning "-Wbuiltin-declaration-mismatch"
+# pragma GCC diagnostic pop
 #endif
 
 _CRTIMP __cdecl __MINGW_NOTHROW

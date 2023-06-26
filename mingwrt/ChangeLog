@@ -1,3 +1,14 @@
+2023-06-26  Keith Marshall  <keith@users.osdn.me>
+
+	Improve testsuite diagnostic message handling.
+
+	* include/process.h [__IN_MINGWRT_TESTSUITE__ && __GNUC__ >= 7]: Push
+	diagnostic state, to save the initial setting of, and then ignore...
+	(-Wbuiltin-declaration-mismatch): ...this, prior to declarations of...
+	(execv, execve, execvp): ...these functions; after these declarations,
+	pop the saved diagnostic state, to revert to the original condition,
+	rather than simply, and arbitrarily, enabling the warning.
+
 2022-08-26  Keith Marshall  <keith@users.osdn.me>
 
 	Do not expose private declarations in <search.h>
